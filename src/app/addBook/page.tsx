@@ -26,6 +26,7 @@ export default async function AddBook() {
       review: data.get('review')?.valueOf(),
       comment: []
     }
+    console.log("myBook object")
     console.log(myBook)
 
     try {
@@ -39,39 +40,9 @@ export default async function AddBook() {
     }
     catch (error) {
       console.log(error);
-    }
-
-   
-    
+    } 
   }
 
-  async function addBook(){
-    const myBook = {
-      title: "myBook4",
-      author: "author4",
-      pages: 150,
-      pageFormat: "A5",
-      cover: "Cover",
-      isRead: true,
-      isOnTheShelf: false,
-      rating: 9,
-      review: "String4",
-      comment: []
-    };
-  
-    try {
-      console.log('CONNECTING TO MONGO');
-      await connectMongo();
-      console.log('CONNECTED TO MONGO');
-  
-      console.log('CREATING DOCUMENT');
-      const book = await Book.create(myBook);
-      console.log('CREATED DOCUMENT');
-    }
-    catch (error) {
-      console.log(error);
-    }
-};
 
   return <>
     <div className='flex flex-col mx-auto'>
