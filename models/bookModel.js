@@ -10,8 +10,8 @@ const bookSchema = new Schema({
   pages: Number,
   pageFormat: String,
   cover: String,
-  isRead: Boolean,
-  isOnTheShelf: Boolean,
+  isRead: String,
+  isOnTheShelf: String,
   rating: Number,
   review: String,
   comment: Array

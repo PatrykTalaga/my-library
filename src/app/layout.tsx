@@ -25,6 +25,8 @@ export default function RootLayout({
             Books</Link>
           <Link href={"/readingList"} className='bg-zinc-700 text-4xl mb-5 mr-10 px-5 py-3 border rounded-lg'>
             Reading List</Link>
+          <Link href={"/addBook"} className='bg-zinc-700 text-4xl mb-5 mr-10 px-5 py-3 border rounded-lg'>
+            Add Book</Link>
           <p className='bg-zinc-700 text-4xl mb-5 border px-5 py-3 rounded-lg mr-5 ml-auto'>
             Search</p>
         </div>
