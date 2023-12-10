@@ -11,7 +11,7 @@ const bookSchema = new Schema({
   pageFormat: String,
   cover: String,
   isRead: String,
-  isOnTheShelf: String,
+  availability: String,
   rating: Number,
   review: String,
   comment: Array

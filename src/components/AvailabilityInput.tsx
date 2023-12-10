@@ -1,13 +1,14 @@
 type labelType = {
   label: string
+  name: string
 };
 
-export function SelectInput({label}:labelType) {
+export function AvailabilityInput({label, name}:labelType) {
   return <>
-    <div className="flex justify-center">
-    <label className="text-lg w-1/6">{label}:</label>
-    <select name={label} className="bg-slate-700 border rounded-md
-        mx-3 my-1.5 w-1/2">
+    <div className="flex justify-left">
+    <label className="text-lg w-32">{label}:</label>
+    <select name={name} className="bg-slate-700 border
+      rounded-md mx-3 my-1.5">
       <option value="On the shelf" className="bg-slate-700 text-lg">
         On the shelf</option>
       <option value="Not avaiable" className="bg-slate-700 text-lg">
