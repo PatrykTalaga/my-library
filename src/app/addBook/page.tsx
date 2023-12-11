@@ -45,9 +45,10 @@ export default async function AddBook() {
 
 
   return <>
-    <div className='flex flex-col mx-auto'>
+    <div className='flex flex-col mx-auto bg-zinc-900 bg-opacity-80 px-10
+      py-7 border rounded-md'>
       <h1 className="text-5xl mb-5 mx-auto">Add new book</h1>
-      <form action={submitForm} className='flex flex-col'>
+      <form action={submitForm} className='flex flex-col '>
         <div className="flex justify-center w-auto mt-3">
           <div className='grid grid-cols-[1fr, 2fr] ' >
             <TextInput label='Book Title' name='title' />
@@ -66,11 +67,11 @@ export default async function AddBook() {
           </div>
         </div>
         <div className='mx-auto mt-5'>
-          <button type="submit" className="bg-slate-700 text-2xl mt-3 mr-2 
-             px-5 py-2 border rounded-lg mx-auto">
+          <button type="submit" className="bg-zinc-900 bg-opacity-80 text-2xl
+            mt-3 mr-2 px-5 py-2 border rounded-lg mx-auto">
             Add</button>
-          <button type="reset" className="bg-slate-700 text-2xl mt-3 ml-2
-            px-5 py-2 border rounded-lg mx-auto">
+          <button type="reset" className="bg-zinc-900 bg-opacity-80 text-2xl
+            mt-3 ml-2 px-5 py-2 border rounded-lg mx-auto">
             Reset</button>
         </div>
       </form>

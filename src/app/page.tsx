@@ -1,8 +1,6 @@
 import mongoose from "mongoose";
 import connectMongo from '../../utils/connectMongo';
 import Book from '../../models/bookModel';
-import Link from 'next/link'
-import { Unlock } from "next/font/google";
 import { BookListElement } from "@/components/BookListElement";
 
 
