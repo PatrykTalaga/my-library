@@ -1,15 +1,17 @@
 import connectMongo from '../../../../utils/connectMongo';
 import List from '../../../../models/listModel';
 import { AddListInput } from "@/components/AddListInput"
+import { redirect } from "next/navigation";
 
 async function addNewListEntry(data: FormData){
   "use server"
-
+  
   if (data.get('title')?.valueOf()==="") return
   const listEntry = {
     title: data.get('title')?.valueOf(),
     author: data.get('author')?.valueOf(),
-    year: data.get('year')?.valueOf()
+    year: data.get('year')?.valueOf(),
+    isRead: false
   }
   console.log(listEntry)
 
@@ -24,7 +26,9 @@ async function addNewListEntry(data: FormData){
   }
   catch (error) {
     console.log(error);
+    return
   }
+  redirect("/readingList/");
   
 }
 
