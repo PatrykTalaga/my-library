@@ -42,7 +42,8 @@ export default async function ReadingList() {
       <div className="flex flex-col gap-y-3 w-fit mx-auto">
         {list.map(entry => (
           <ReadingListEntry key={entry._id.toString()} toggleRead={toggleRead}
-            deleteEntry={deleteEntry} {...entry.toJSON()} />
+            deleteEntry={deleteEntry} title={entry.title} author={entry.author}
+            _id={entry._id.toString()} year={entry.year} isRead={entry.isRead} />
         ))}
         <Link href={"/readingList/newListEntry"} className="text-2xl border
           rounded-lg px-3 py-2 my-5 flex justify-center">
