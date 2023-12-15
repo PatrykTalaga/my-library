@@ -1,5 +1,7 @@
 import { writeFile} from 'fs/promises'
 import { join } from 'path'
+import { redirect } from "next/navigation";
+
 
 import connectMongo from '../../../utils/connectMongo';
 import Book from '../../../models/bookModel';
@@ -9,14 +11,40 @@ import { BooleanInput } from '@/components/BooleanInput';
 import { AvailabilityInput } from '@/components/AvailabilityInput';
 import { TextAreaInput } from '@/components/TextAreaInput';
 import { UploadImage } from '@/components/UploadImage';
+import BookForm from './BookForm';
+
 
 export default async function AddBook() {
-
-  async function submitForm(data: FormData){
+  
+/*   async function submitForm(data: FormData){
     "use server"
 
-    if (data.get('title')?.valueOf()==="") return
+    if (data.get('title')?.valueOf()==="") return;
     const imageId = crypto.randomUUID();
+
+    ////////file upload///////
+    const file:File | null = data.get('file') as unknown as File
+    if(file.size !== 0) {
+      try{
+        if(file.type !== 'image/jpeg' && file.type !== 'image/png') {
+          `${file.type}`
+          throw new Error(`Wrong file format, uploaded file format:`+
+           `${file.type}`);
+        }
+        if(file.size > 1000000) {
+          throw new Error(`File Size is too big, current size:`+
+           `${(Math.floor(file.size/1000)/1000)}Mb`);
+        }
+  
+        const bytes = await file.arrayBuffer();
+        const buffer = Buffer.from(bytes);
+        const path = join('public/', 'bookCovers/', imageId);
+        await writeFile(path, buffer);
+        console.log(`open ${path} to see uploaded file`);
+        }catch(err){
+          return;
+        }
+    }
     
     /////////////////////DB///////////////
     const isRead = data.get('isRead')?.valueOf()==='yes'?true:false
@@ -47,33 +75,20 @@ export default async function AddBook() {
     }
     catch (error) {
       console.log(error);
+      return;
     }
+    redirect('/')
+  } */
 
-    ////////file upload///////
-    const file:File | null = data.get('file')?.valueOf() as unknown as File
-    console.log(file)
-    if(!file) {
-      throw new Error('No file was uploaded')
-    }
-    /* if(file.size > 1000000) {
-      throw new Error('No file was uploaded')
-    } */ 
 
-    
-    const bytes = await file.arrayBuffer()
-    const buffer = Buffer.from(bytes)
-
-    const path = join('public/', 'bookCovers/', imageId)
-    await writeFile(path, buffer)
-    console.log(`open ${path} to see uplpaded file`)
-  }
 
 
   return <>
     <div className='flex flex-col mx-auto bg-zinc-900 bg-opacity-80 px-10
       py-7 border rounded-md'>
       <h1 className="text-5xl mb-5 mx-auto">Add new book</h1>
-      <form action={submitForm} className='flex flex-col '>
+      <BookForm />
+      {/* <form action={saveDB} className='flex flex-col '>
         <div className="flex justify-center w-auto mt-3">
           <div className='grid grid-cols-[1fr, 2fr] ' >
             <TextInput label='Book Title' name='title' />
@@ -99,7 +114,7 @@ export default async function AddBook() {
             mt-3 ml-2 px-5 py-2 border rounded-lg mx-auto">
             Reset</button>
         </div>
-      </form>
+      </form> */}
     </div>
   </>
 }
