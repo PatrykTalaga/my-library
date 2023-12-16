@@ -32,9 +32,9 @@ export default async function saveDB(data: FormData){
     author: data.get('author')?.valueOf(),
     pages: data.get('pages')?.valueOf(),
     pageFormat: data.get('pageFormat')?.valueOf(),
-    cover: imageId,
+    cover: file.size !== 0 ? imageId : "",
     isRead: isRead,
-    isOnTheShelf: data.get('availability')?.valueOf(),
+    availability: data.get('availability')?.valueOf(),
     rating: data.get('rating')?.valueOf(),
     review: data.get('review')?.valueOf(),
     comment: []

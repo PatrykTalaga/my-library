@@ -21,13 +21,13 @@ export default function RootLayout({
         bg-[url('../../public/bg-dark-hq.jpg')] w-full bg-center-bottom
         bg-no-repeat bg-cover container`}>
         <div className='flex justify-start w-full border-b-4 mt-3 mb-10'>
-          <Link href={"/"} className='bg-zinc-900 bg-opacity-80 text-4xl mb-5 mr-10 border px-5 py-3 rounded-lg'>
+          <Link href={"/"} className='bg-zinc-900 bg-opacity-80 text-4xl mb-5 mr-10 border px-5 py-3 rounded-lg hover:scale-110'>
             Books</Link>
-          <Link href={"/addBook"} className='bg-zinc-900 bg-opacity-80 text-4xl mb-5 mr-10 px-5 py-3 border rounded-lg'>
+          <Link href={"/addBook"} className='bg-zinc-900 bg-opacity-80 text-4xl mb-5 mr-10 px-5 py-3 border rounded-lg hover:scale-110'>
             Add Book</Link>
-          <Link href={"/readingList"} className='bg-zinc-900 bg-opacity-80 text-4xl mb-5 mr-10 px-5 py-3 border rounded-lg'>
+          <Link href={"/readingList"} className='bg-zinc-900 bg-opacity-80 text-4xl mb-5 mr-10 px-5 py-3 border rounded-lg hover:scale-110'>
             Reading List</Link>
-          <p className='bg-zinc-900 bg-opacity-80 text-4xl mb-5 border px-5 py-3 rounded-lg mr-5 ml-auto'>
+          <p className='bg-zinc-900 bg-opacity-80 text-4xl mb-5 border px-5 py-3 rounded-lg mr-5 ml-auto hover:scale-110'>
             Search</p>
         </div>
         {children}

@@ -46,7 +46,7 @@ export default async function ReadingList() {
             _id={entry._id.toString()} year={entry.year} isRead={entry.isRead} />
         ))}
         <Link href={"/readingList/newListEntry"} className="text-2xl border
-          rounded-lg px-3 py-2 my-5 flex justify-center">
+          rounded-lg px-3 py-2 my-5 flex justify-center hover:scale-110">
           Add new book to read
         </Link>
       </div>

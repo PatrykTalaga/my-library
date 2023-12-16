@@ -46,10 +46,10 @@ const NewListEntry = () => {
           rounded-md bg-zinc-900 bg-opacity-80  "/>
         </div>
         <button type="submit" className="border rounded-md bg-zinc-900
-          bg-opacity-80 w-1/2 mx-auto mt-3">
+          bg-opacity-80 w-1/2 mx-auto mt-3 hover:scale-110">
           Add</button>
           <button type="reset" className="border rounded-md bg-zinc-900
-          bg-opacity-80 w-1/2 mx-auto mt-3">
+          bg-opacity-80 w-1/2 mx-auto mt-3 hover:scale-110">
           Reset</button>
       </form>
     </div>  

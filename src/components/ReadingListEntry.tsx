@@ -30,7 +30,7 @@ export function ReadingListEntry({
         <b>Year:</b> {year}
       </p>
       <button onClick={()=>deleteEntry(_id)} className="text-xl mx-3 my-auto
-        ml-auto bg-red-600 px-5 py-2 border-slate-950 rounded-lg">
+        ml-auto bg-red-600 px-5 py-2 border-slate-950 rounded-lg hover:scale-110">
         Delete</button>
     </li>
   </>

@@ -11,7 +11,7 @@ export function UploadImage({label, name}:UploadImage) {
       <div>
         <input type="file" name='file' className="bg-zinc-900 bg-opacity-80
         border rounded-md mx-3 my-1.5 text-lg"/>
-        <p className='ml-5 text-lg'>Upload only PNG or JPG (MAX. 1MB)</p>
+        <p className='ml-5 text-lg'>Upload only PNG or JPG (MAX. 500kB)</p>
       </div>
     </div>
   </>

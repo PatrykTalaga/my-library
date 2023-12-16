@@ -11,8 +11,8 @@ export default function SubmitButton() {
 
   return(
     <button
-      className='bg-zinc-900 bg-opacity-80 text-2xl
-      mt-3 mr-2 px-5 py-2 border rounded-lg mx-auto"'
+      className=' bg-zinc-900 bg-opacity-80 text-2xl mt-3 mr-3 px-5 py-2
+      border rounded-lg mx-auto disabled:bg-neutral-700 hover:scale-110'
       disabled={pending}
     >
       Submit {pending && '...'}
