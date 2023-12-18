@@ -30,6 +30,7 @@ export default async function saveDB(data: FormData){
   const myBook = {
     title: data.get('title')?.valueOf(),
     author: data.get('author')?.valueOf(),
+    year: data.get('year')?.valueOf(),
     pages: data.get('pages')?.valueOf(),
     pageFormat: data.get('pageFormat')?.valueOf(),
     cover: file.size !== 0 ? imageId : "",
