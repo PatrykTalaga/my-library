@@ -30,7 +30,8 @@ export default async function EditBook({params}:{params:{editBookID:string}} ){
     review: book.review,
   }
   
+  console.log(params.editBookID)
   return(
-    <BookEditForm book={bookNoId} />
+    <BookEditForm book={bookNoId} id={params.editBookID} />
   )
 }

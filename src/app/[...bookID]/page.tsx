@@ -31,8 +31,14 @@ export default async function BookID ( {params}:{params: {bookID:string}} ){
       console.error(error);
     }
   }
+  console.log("")
+  console.log(typeof(params.bookID[0]))
+  console.log(params.bookID[0])
 
-  const book = await findBook(params.bookID);
+  console.log("")
+  console.log(typeof(params.bookID))
+  console.log(params.bookID)
+  const book:BookType = await findBook(params.bookID[0]);
   if(book === null) {
     return(
       <h1>Book not found</h1>
@@ -41,7 +47,7 @@ export default async function BookID ( {params}:{params: {bookID:string}} ){
     return(
       <div className='flex flex-col items-center'>
         <div className='flex justify-end  w-3/4'>
-          <Link href={`/editBooks/${book._id}`} className='mb-5 text-xl bg-zinc-600 px-8 py-3
+          <Link href={`/editBooks/${params.bookID[0]}`} className='mb-5 text-xl bg-zinc-600 px-8 py-3
            border-slate-950 rounded-lg hover:scale-110'>
             Edit</Link>
         </div>

@@ -2,18 +2,19 @@ import Link from "next/link"
 
 type BookType = {
   book: {
-    _id: string,
+    /* _id: string, */
     title: string,
     cover: string,
     author: string,
     isRead: boolean,
     availability: string
-  }
+  },
+  id: string
 }
 
-export function BookListElement ({book}:BookType)  {
+export function BookListElement ({book, id}:BookType)  {
   return (
-    <Link href={`/${book._id}`} className="bg-zinc-900 bg-opacity-80 border rounded-lg
+    <Link href={`/${id}`} className="bg-zinc-900 bg-opacity-80 border rounded-lg
       w-fit p-5">
       <h1 className="text-2xl font-bold">{book.title}</h1>
       {book.cover !== "" && <img className=" my-2 mx-auto h-60" 
