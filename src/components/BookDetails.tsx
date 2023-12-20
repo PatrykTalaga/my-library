@@ -20,11 +20,13 @@ type BookType = {
 
 export default function BookDetails ({book}:BookType)  {
   console.log('******************************************************************************')
-  console.log(book)
+  console.log(typeof(book))
+  console.log('***_')
   console.log(typeof(book.cover))
   console.log('******************************************************************************')
   const path = join('public/', 'bookCovers/', book.cover)
-
+  
+  
   return (
     <div className="bg-zinc-900 bg-opacity-80 border rounded-lg flex jus
       w-3/4 p-5">

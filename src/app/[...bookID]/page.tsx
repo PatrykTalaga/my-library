@@ -2,6 +2,8 @@ import connectMongo from '../../../utils/connectMongo';
 import Book from '../../../models/bookModel';
 import BookDetails from '../../components/BookDetails';
 import Link from 'next/link';
+import EditButton from './EditButton';
+
 
 type BookType = {
   book: {
@@ -31,6 +33,7 @@ export default async function BookID ( {params}:{params: {bookID:string}} ){
       console.error(error);
     }
   }
+
 
   const book:BookType = await findBook(params.bookID[0]);
   if(book === null) {

@@ -12,7 +12,6 @@ import { useEffect, useState } from "react"
 
 
 type BookType = {
-  book: {
     title: string,
     cover: string,
     author: string,
@@ -23,24 +22,24 @@ type BookType = {
     year: number,
     rating: number,
     review: string,
-  },
-  id:string
 }
 
-export default function BookEditForm ({book, id}:BookType){
+
+export default function BookEditForm ({title="", cover="", author="", isRead=true, availability="On the shelf", pages=0, pageFormat="", year=0, rating=0, review=""}:BookType){
 
   const [newBook, setNewBook] = useState({
-    title: book.title,
-    cover: book.cover,
-    author: book.author,
-    isRead: book.isRead,
-    availability: book.availability,
-    pages: book.pages,
-    pageFormat: book.pageFormat,
-    year: book.year,
-    rating: book.rating,
-    review: book.review,
+    title: title,
+    cover: cover,
+    author: author,
+    isRead: isRead,
+    availability: availability,
+    pages: pages,
+    pageFormat: pageFormat,
+    year: year,
+    rating: rating,
+    review: review,
   });
+  console.log()
 
   
   function isReadInput(e:any){
@@ -65,7 +64,7 @@ export default function BookEditForm ({book, id}:BookType){
         console.error(error);
         return;
       }
-      const result = await sumbitCover(formData, book.title);
+      const result = await sumbitCover(formData, title);
       console.log(result)
       if(typeof(result) === 'string') setNewBook({...newBook, cover: result})
       

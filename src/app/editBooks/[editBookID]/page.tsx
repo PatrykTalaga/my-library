@@ -42,6 +42,6 @@ export default async function EditBook({params}:{params:{editBookID:string}} ){
   
 
   return(
-    <BookEditForm book={bookNoId} id={params.editBookID} />
+    <BookEditForm {...bookNoId} />
   )
 }
