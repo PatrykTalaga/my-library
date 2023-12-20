@@ -11,7 +11,7 @@ export function NumberInputControlled({label, name, value, change}:labelType) {
         <div className="flex justify-left">
           <label className="text-lg w-28 my-auto">{label}</label>
           <input required type="number" name={name} className="bg-zinc-900 bg-opacity-80
-            border rounded-md mx-3 my-1.5" value={value} onChange={change}/>
+            border rounded-md mx-3 my-1.5" value={value || 0} onChange={change}/>
         </div>
       </div>
   </>

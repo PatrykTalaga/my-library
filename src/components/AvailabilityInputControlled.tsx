@@ -10,7 +10,7 @@ export function AvailabilityInputControlled({label, name, value, change}:labelTy
     <div className="flex justify-left">
     <label className="text-lg w-28">{label}:</label>
     <select name={name} className="bg-zinc-900 bg-opacity-80 border
-      rounded-md mx-3 my-1.5" onChange={change} defaultValue={value}>
+      rounded-md mx-3 my-1.5" onChange={change} defaultValue={value || "On the shelf"}>
       <option value="On the shelf" className="bg-zinc-900 bg-opacity-80
         text-lg">
         On the shelf</option>

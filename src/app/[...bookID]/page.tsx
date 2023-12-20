@@ -17,7 +17,7 @@ type BookType = {
     rating: Number,
     review: String,
     comment: Array<string>
-  } | null
+  }
 }
 
 export default async function BookID ( {params}:{params: {bookID:string}} ){
@@ -31,13 +31,7 @@ export default async function BookID ( {params}:{params: {bookID:string}} ){
       console.error(error);
     }
   }
-  console.log("")
-  console.log(typeof(params.bookID[0]))
-  console.log(params.bookID[0])
 
-  console.log("")
-  console.log(typeof(params.bookID))
-  console.log(params.bookID)
   const book:BookType = await findBook(params.bookID[0]);
   if(book === null) {
     return(

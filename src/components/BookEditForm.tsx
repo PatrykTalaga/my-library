@@ -5,16 +5,14 @@ import { NumberInputControlled } from "./NumberInputControlled"
 import { BooleanInputControlled } from "./BooleanInputControlled"
 import { TextAreaInputControlled } from "./TextAreaInputControlled"
 import { AvailabilityInputControlled } from "./AvailabilityInputControlled"
-
 import sumbitToDB from "@/app/editBooks/[editBookID]/submitToDB"
 import sumbitCover from "@/app/editBooks/[editBookID]/submitCover"
-import { redirect } from "next/navigation"
+
 import { useEffect, useState } from "react"
 
 
 type BookType = {
   book: {
-    _id:string,
     title: string,
     cover: string,
     author: string,
@@ -30,6 +28,7 @@ type BookType = {
 }
 
 export default function BookEditForm ({book, id}:BookType){
+
   const [newBook, setNewBook] = useState({
     title: book.title,
     cover: book.cover,
@@ -43,13 +42,6 @@ export default function BookEditForm ({book, id}:BookType){
     review: book.review,
   });
 
-/*   useEffect(() => {
-    const timer = setTimeout(() => {
-      console.log('redirect');
-      redirect(`/editBooks/${id}`);
-    }, 3000);
-    return () => clearTimeout(timer);
-  }, [newBook.cover]); */
   
   function isReadInput(e:any){
     const isReadInput = e.target.checked
@@ -57,9 +49,7 @@ export default function BookEditForm ({book, id}:BookType){
   }
 
   async function submitForm(formData: FormData){
-
     const file:File | null = formData.get('cover') as unknown as File
-    console.log(file)
     if(file.size !== 0) {
       try{
         if(file.type !== 'image/jpeg' && file.type !== 'image/png') {
@@ -105,7 +95,7 @@ export default function BookEditForm ({book, id}:BookType){
           <div>
             <div className="flex justify-left">
               <label className="text-lg w-28 my-auto">Title: </label>
-              <input required type="text" name='title'  value={newBook.title}
+              <input required type="text" name='title'  value={newBook.title || ""}
                 onChange={(e)=>setNewBook({...newBook, title: e.target.value})}
                 className="bg-zinc-900 bg-opacity-80 border rounded-md mx-3 my-1.5"/>
             </div>
