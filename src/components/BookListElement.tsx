@@ -20,9 +20,9 @@ export function BookListElement ({book, id}:BookType)  {
 
   return (
     <Link href={`/${id}`} className="bg-zinc-900 bg-opacity-80 border rounded-lg
-      w-fit p-5">
-      <h1 className="text-2xl font-bold">{book.title}</h1>
-      {fs.existsSync(path) && book.cover !== "" && <img className="my-2 mx-auto h-60" 
+       p-5 w-64 hover:scale-105">
+      <h1 className="text-2xl font-bold text-center">{book.title}</h1>
+      {fs.existsSync(path) && book.cover !== "" && <img className="my-2 mx-auto h-60 object-scale-down" 
         src={`/bookCovers/${book.cover}`}>
       </img>}
       <p className="text-lg"><b>Author:</b> {book.author}</p>

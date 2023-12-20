@@ -24,20 +24,19 @@ export default async function sumbitCover(data: FormData, title:string){
       //remove old cover if it exist
       const oldPath = join('public/', 'bookCovers/', book.cover);
       if(fs.existsSync(oldPath)){
-        console.log(fs.existsSync(oldPath))
+        try{
+          console.log(fs.existsSync(oldPath))
         console.log("here")
-        /* const fs = require('fs') */
-
           fs.unlinkSync(oldPath);
           console.log("here")
-
-        
-        
+        }catch(error){
+          console.error(error)
+        }
       }
-      
+      //save new cover id in DB
       book.cover = imageId;
       await book.save();
-      return(imageId);
+      return(imageId); //return new cover Id to reload img
       }catch(err){
         console.error(err);
         return(false);

@@ -25,7 +25,17 @@ type BookType = {
 }
 
 
-export default function BookEditForm ({title="", cover="", author="", isRead=true, availability="On the shelf", pages=0, pageFormat="", year=0, rating=0, review=""}:BookType){
+export default function BookEditForm ({
+  title="",
+  cover="",
+  author="",
+  isRead=true,
+  availability="On the shelf",
+  pages=0,
+  pageFormat="",
+  year=0, 
+  rating=0,
+  review=""}:BookType){
 
   const [newBook, setNewBook] = useState({
     title: title,
@@ -39,7 +49,9 @@ export default function BookEditForm ({title="", cover="", author="", isRead=tru
     rating: rating,
     review: review,
   });
-  console.log()
+
+  const [imgErrorMessage, setImgErrorMessage] = useState("");
+  const [titleError, setTitleError] = useState("");
 
   
   function isReadInput(e:any){
@@ -62,12 +74,14 @@ export default function BookEditForm ({title="", cover="", author="", isRead=tru
         }
       }catch(error){
         console.error(error);
+        setImgErrorMessage(error.message);
         return;
       }
       const result = await sumbitCover(formData, title);
       console.log(result)
-      if(typeof(result) === 'string') setNewBook({...newBook, cover: result})
-      
+      if(typeof(result) === 'string') {
+        setNewBook({...newBook, cover: result});
+        setImgErrorMessage("");}
     } 
   }
 
@@ -79,6 +93,8 @@ export default function BookEditForm ({title="", cover="", author="", isRead=tru
       {newBook.cover !== "" && <img className=" my-2 mx-10 h-96 object-scale-down" 
         src={`/bookCovers/${newBook.cover}`}>
       </img>}
+      <p className="text-3xl text-red-600 mx-auto mt-4">
+        {imgErrorMessage && imgErrorMessage}</p>
       <form action={submitForm} className="flex flex-col justify-center items-center">
       <input type="file" name="cover" className="bg-zinc-900 bg-opacity-80
         border rounded-md mx-2 my-1.5 text-lg w-80"/>
