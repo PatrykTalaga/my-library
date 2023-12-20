@@ -2,6 +2,9 @@ import connectMongo from '../../../../utils/connectMongo';
 import Book from '../../../../models/bookModel';
 import BookEditForm from '@/components/BookEditForm';
 
+import fs from 'fs';
+import { join } from 'path'
+
 export default async function EditBook({params}:{params:{editBookID:string}} ){
 
   async function findBook(bookID:string) {
@@ -39,7 +42,11 @@ export default async function EditBook({params}:{params:{editBookID:string}} ){
     rating: book.rating,
     review: book.review,
   }
-  
+  const path = join('public/', 'bookCovers/', book.cover)
+    if(book.cover !=="") {
+      if(fs.existsSync(path) !== true) {
+        bookNoId.cover= "bg-dark.jpg"
+    }}
 
   return(
     <BookEditForm {...bookNoId} />

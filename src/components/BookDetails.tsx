@@ -19,18 +19,11 @@ type BookType = {
 }
 
 export default function BookDetails ({book}:BookType)  {
-  console.log('******************************************************************************')
-  console.log(typeof(book))
-  console.log('***_')
-  console.log(typeof(book.cover))
-  console.log('******************************************************************************')
-  const path = join('public/', 'bookCovers/', book.cover)
-  
   
   return (
     <div className="bg-zinc-900 bg-opacity-80 border rounded-lg flex jus
       w-3/4 p-5">
-      {fs.existsSync(path) && <img className=" my-2 mx-10 h-96" 
+      {book.cover && <img className=" my-2 mx-10 h-96" 
         src={`/bookCovers/${book.cover}`}>
       </img>}
       <div>

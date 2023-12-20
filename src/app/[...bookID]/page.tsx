@@ -2,11 +2,12 @@ import connectMongo from '../../../utils/connectMongo';
 import Book from '../../../models/bookModel';
 import BookDetails from '../../components/BookDetails';
 import Link from 'next/link';
-import EditButton from './EditButton';
 
+import fs from 'fs';
+import { join } from 'path'
 
 type BookType = {
-  book: {
+  
     _id: string,
     title: string,
     cover: string,
@@ -19,7 +20,7 @@ type BookType = {
     rating: Number,
     review: String,
     comment: Array<string>
-  }
+  
 }
 
 export default async function BookID ( {params}:{params: {bookID:string}} ){
@@ -41,6 +42,13 @@ export default async function BookID ( {params}:{params: {bookID:string}} ){
       <h1>Book not found</h1>
     )
   }else{
+    const path = join('public/', 'bookCovers/', book.cover)
+    if(book.cover !=="") {
+      if(fs.existsSync(path) !== true) {
+        book.cover= "bg-dark.jpg"
+    }}
+    
+
     return(
       <div className='flex flex-col items-center'>
         <div className='flex justify-end  w-3/4'>
