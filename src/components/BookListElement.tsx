@@ -17,6 +17,11 @@ type BookType = {
 export function BookListElement ({book, id}:BookType)  {
 
   const path = join('public/', 'bookCovers/', book.cover)
+    if(book.cover !=="") {
+      if(fs.existsSync(path) !== true) {
+        book.cover = "bg-dark.jpg"
+    }}
+
 
   return (
     <Link href={`/${id}`} className="bg-zinc-900 bg-opacity-80 border

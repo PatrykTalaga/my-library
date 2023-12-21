@@ -7,47 +7,21 @@ import { BooleanInputControlled } from "./BooleanInputControlled"
 import { TextAreaInputControlled } from "./TextAreaInputControlled"
 import { AvailabilityInputControlled } from "./AvailabilityInputControlled"
 import sumbitCover from "@/app/functions/submitCover"
-import saveBook from "@/app/functions/saveBook"
+import addBook from "@/app/functions/addBook"
 
-type BookType = {
-  id:string,
-  title: string,
-  cover: string,
-  author: string,
-  isRead: boolean,
-  availability: string,
-  pages: number,
-  pageFormat: string,
-  year: number,
-  rating: number,
-  review: string,
-}
-
-export default function BookEditForm ({
-  id=",",
-  title="",
-  cover="empty",
-  author="",
-  isRead=true,
-  availability="On the shelf",
-  pages=0,
-  pageFormat="",
-  year=0, 
-  rating=0,
-  review=""}:BookType){
+export default function AddBookForm() {
 
   const [newBook, setNewBook] = useState({
-    id: id,
-    title: title,
-    cover: cover,
-    author: author,
-    isRead: isRead,
-    availability: availability,
-    pages: pages,
-    pageFormat: pageFormat,
-    year: year,
-    rating: rating,
-    review: review,
+    title: "",
+    cover: "",
+    author: "",
+    isRead: false,
+    availability: "",
+    pages: 0,
+    pageFormat: "",
+    year: 0,
+    rating: 0,
+    review: "",
   });
 
   const [imgErrorMessage, setImgErrorMessage] = useState("");
@@ -60,6 +34,8 @@ export default function BookEditForm ({
   }
 
   async function submitForm(formData: FormData){
+    saveEdit();
+
     const file:File | null = formData.get('cover') as unknown as File
     if(file.size !== 0) {
       try{
@@ -77,7 +53,7 @@ export default function BookEditForm ({
         setImgErrorMessage(error.message);
         return;
       }
-      const result = await sumbitCover(formData, title);
+      const result = await sumbitCover(formData, newBook.title);
       console.log(result)
       if(typeof(result) === 'string') {
         setNewBook({...newBook, cover: result});
@@ -93,47 +69,24 @@ export default function BookEditForm ({
       return;
       }
 
-    /* const validate = await validateTittle(newBook.id)
-    if(validate !== true) {
-      setTitleError(validate); 
-      return;
-    } */
-
-    const saveResult = await saveBook({...newBook,})
+    const saveResult = await addBook({...newBook,})
     if(saveResult !== true) {
       setTitleError(saveResult);
       return;
       }
     setTitleError("")
-    alert("Edit Saved")
+    alert("Book Saved")
   }
 
   return(
     <>
     <div className="bg-zinc-900 bg-opacity-80 border rounded-lg flex
-      w-full mx-auto p-5">
+      w-full mx-auto p-5 md:flex-col md:w-3/4">
         
-{/* cover */}
-      <div className="flex flex-col border-r">
-      {newBook.cover !== "" && <img className=" my-2 mx-10 h-96
-        object-scale-down" src={`/bookCovers/${newBook.cover}`}>
-      </img>}
-      <p className="text-3xl text-red-600 mx-auto mt-4">
-        {imgErrorMessage && imgErrorMessage}</p>
-      <form action={submitForm} className="flex flex-col justify-center
-        items-center">
-      <input type="file" name="cover" className="bg-zinc-900 bg-opacity-80
-        border rounded-md mx-2 my-1.5 text-lg w-80"/>
-      <p className=''>Upload only PNG or JPG (MAX. 500kB)</p>
-        <button type="submit" className="bg-zinc-900 bg-opacity-80 border
-          rounded-lg mt-2 px-5 py-2">Change Cover
-        </button>
-      </form>
-      </div>
-
+{/* form text side */}
+      <div className="flex w-full justify-evenly mx-auto md:flex-col">
 {/* form left side */}
-      <div className="flex w-full justify-evenly ml-2">
-        <div className="flex flex-col">
+        <div className="flex flex-col items-center">
         <p className="text-3xl text-red-600 mx-auto mt-4">
         {titleError && titleError}</p>
           <div>
@@ -165,19 +118,33 @@ export default function BookEditForm ({
           <AvailabilityInputControlled label={"Availability: "}
             name={"availability"} value={newBook.availability}
             change={(e)=>setNewBook({...newBook, availability: e.target.value})} />
-          <button className="bg-zinc-900 bg-opacity-80 border rounded-lg
-            mx-auto mt-7 p-5" onClick={saveEdit}>Submit
-          </button>
         </div>
 
-{/* form left side */}
-        <div className="flex flex-col ml-5">
+{/* form rights side */}
+        <div className="flex flex-col mx-auto items-center">
           <TextAreaInputControlled label={"Review: "} name={"review"}
             value={newBook.review}
             change={(e)=>setNewBook({...newBook, review: e.target.value})} />
         </div>
       </div>
-      
+
+{/* cover */}
+      <div className="flex flex-col mr-2 lg:border-l lg:pl-5">
+      {newBook.cover !== "" && <img className=" my-2 mx-auto h-96
+        object-scale-down" src={`/bookCovers/${newBook.cover}`}>
+      </img>}
+      <p className="text-3xl text-red-600 mx-auto mt-4">
+        {imgErrorMessage && imgErrorMessage}</p>
+      <form action={submitForm} className="flex flex-col justify-between
+        items-center">
+      <input type="file" name="cover" className="bg-zinc-900 bg-opacity-80
+        border rounded-md mx-2 my-1.5 text-lg w-80"/>
+      <p className=''>Upload only PNG or JPG (MAX. 500kB)</p>
+        <button type="submit" className=" bg-black border
+          rounded-lg px-10 py-3 mt-10 text-3xl hover:scale-110">Add Book
+        </button>
+      </form>
+      </div>
     </div>
     </>
   )

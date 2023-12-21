@@ -3,10 +3,10 @@
 import connectMongo from '../../../utils/connectMongo';
 import Book from '../../../models/bookModel';
 
-export default async function validateTittle(id:string){
+export default async function validateTittle(title:string){
   try{
     await connectMongo();
-    const result = await Book.findOne({ _id: id});
+    const result = await Book.findOne({ title: title});
     if(result == null) return true;
     return "Book of this title is already in library";
   }catch(error){

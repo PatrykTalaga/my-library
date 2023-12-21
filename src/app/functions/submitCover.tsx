@@ -3,8 +3,8 @@
 import { writeFile} from 'fs/promises'
 import { join } from 'path'
 import fs from 'fs';
-import connectMongo from '../../../../utils/connectMongo';
-import Book from '../../../../models/bookModel';
+import connectMongo from '../../../utils/connectMongo';
+import Book from '../../../models/bookModel';
 
 
 export default async function sumbitCover(data: FormData, title:string){
@@ -14,8 +14,9 @@ export default async function sumbitCover(data: FormData, title:string){
     const imageId = crypto.randomUUID();
 
     try{
-      await connectMongo();;
+      await connectMongo();
       const book = await Book.findOne({ title: title});
+      if(book === null) return false;
       //save cover
       const bytes = await file.arrayBuffer();
       const buffer = Buffer.from(bytes);
@@ -26,9 +27,9 @@ export default async function sumbitCover(data: FormData, title:string){
       if(fs.existsSync(oldPath)){
         try{
           console.log(fs.existsSync(oldPath))
-        console.log("here")
+          console.log("here before delete")
           fs.unlinkSync(oldPath);
-          console.log("here")
+          console.log("here after delete")
         }catch(error){
           console.error(error)
         }
