@@ -8,7 +8,7 @@ import { AvailabilityInput } from '@/components/AvailabilityInput';
 import { TextAreaInput } from '@/components/TextAreaInput';
 import { UploadImage } from '@/components/UploadImage';
 import SubmitButton from "@/components/SubmitButtton";
-import validateTittle from "./validateTitle";
+import validateTittle from "../validateTitle";
 
 export default function BookForm() {
 

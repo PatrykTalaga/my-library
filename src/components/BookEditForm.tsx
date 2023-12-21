@@ -1,31 +1,30 @@
 "use client"
 
+import { useState } from "react"
 import { TextInputControlled } from "./TextInputControlled"
 import { NumberInputControlled } from "./NumberInputControlled"
 import { BooleanInputControlled } from "./BooleanInputControlled"
 import { TextAreaInputControlled } from "./TextAreaInputControlled"
 import { AvailabilityInputControlled } from "./AvailabilityInputControlled"
-import sumbitToDB from "@/app/editBooks/[editBookID]/submitToDB"
 import sumbitCover from "@/app/editBooks/[editBookID]/submitCover"
-
-import { useEffect, useState } from "react"
-
+import saveBook from "@/app/functions/saveBook"
 
 type BookType = {
-    title: string,
-    cover: string,
-    author: string,
-    isRead: boolean,
-    availability: string,
-    pages: number,
-    pageFormat: string,
-    year: number,
-    rating: number,
-    review: string,
+  id:string,
+  title: string,
+  cover: string,
+  author: string,
+  isRead: boolean,
+  availability: string,
+  pages: number,
+  pageFormat: string,
+  year: number,
+  rating: number,
+  review: string,
 }
 
-
 export default function BookEditForm ({
+  id=",",
   title="",
   cover="",
   author="",
@@ -38,6 +37,7 @@ export default function BookEditForm ({
   review=""}:BookType){
 
   const [newBook, setNewBook] = useState({
+    id: id,
     title: title,
     cover: cover,
     author: author,
@@ -56,7 +56,7 @@ export default function BookEditForm ({
   
   function isReadInput(e:any){
     const isReadInput = e.target.checked
-    setNewBook({...newBook, isRead: !isReadInput}); //Figure out how
+    setNewBook({...newBook, isRead: isReadInput});
   }
 
   async function submitForm(formData: FormData){
@@ -85,26 +85,58 @@ export default function BookEditForm ({
     } 
   }
 
+  async function saveEdit(){
+    console.log("Here")
+    console.log(newBook.title)
+    if(newBook.title == "") {
+      setTitleError("Book cannot have empty title");
+      return;
+      }
+
+    /* const validate = await validateTittle(newBook.id)
+    if(validate !== true) {
+      setTitleError(validate); 
+      return;
+    } */
+
+    const saveResult = await saveBook({...newBook,})
+    if(saveResult !== true) {
+      setTitleError(saveResult);
+      return;
+      }
+    setTitleError("")
+    alert("Edit Saved")
+
+      
+    
+      
+    
+  }
+
   return(
     <>
     <div className="bg-zinc-900 bg-opacity-80 border rounded-lg flex
       w-full mx-auto p-5">
+        
+{/* cover */}
       <div className="flex flex-col border-r">
-      {newBook.cover !== "" && <img className=" my-2 mx-10 h-96 object-scale-down" 
-        src={`/bookCovers/${newBook.cover}`}>
+      {newBook.cover !== "" && <img className=" my-2 mx-10 h-96
+        object-scale-down" src={`/bookCovers/${newBook.cover}`}>
       </img>}
       <p className="text-3xl text-red-600 mx-auto mt-4">
         {imgErrorMessage && imgErrorMessage}</p>
-      <form action={submitForm} className="flex flex-col justify-center items-center">
+      <form action={submitForm} className="flex flex-col justify-center
+        items-center">
       <input type="file" name="cover" className="bg-zinc-900 bg-opacity-80
         border rounded-md mx-2 my-1.5 text-lg w-80"/>
       <p className=''>Upload only PNG or JPG (MAX. 500kB)</p>
-        <button type="submit" className="bg-zinc-900 bg-opacity-80 border rounded-lg
-          mt-2 px-5 py-2">Change Cover</button>
+        <button type="submit" className="bg-zinc-900 bg-opacity-80 border
+          rounded-lg mt-2 px-5 py-2">Change Cover
+        </button>
       </form>
       </div>
 
-
+{/* form left side */}
       <div className="flex w-full justify-evenly ml-2">
         <div className="flex flex-col">
           <div>
@@ -115,34 +147,41 @@ export default function BookEditForm ({
                 className="bg-zinc-900 bg-opacity-80 border rounded-md mx-3 my-1.5"/>
             </div>
           </div>
-          <TextInputControlled label={"Author: "} name={"author"} value={newBook.author}
+          <TextInputControlled label={"Author: "} name={"author"}
+            value={newBook.author}
             change={(e)=>setNewBook({...newBook, author: e.target.value})} />
-          <NumberInputControlled label={"Year: "} name={"year"} value={newBook.year}
+          <NumberInputControlled label={"Year: "} name={"year"}
+            value={newBook.year}
             change={(e)=>setNewBook({...newBook, year: e.target.value})}/> 
           <TextInputControlled label={"Page format: "} name={"pageFormat"}
             value={newBook.pageFormat}
             change={(e)=>setNewBook({...newBook, pageFormat: e.target.value})} />
-          <NumberInputControlled label={"Pages: "} name={"pages"} value={newBook.pages}
+          <NumberInputControlled label={"Pages: "} name={"pages"}
+            value={newBook.pages}
             change={(e)=>setNewBook({...newBook, pages: e.target.value})}/>
-          <NumberInputControlled label={"Rating: "} name={"rating"} value={newBook.rating}
-            change={(e)=>setNewBook({...newBook, year: e.target.value})}/> 
-          <BooleanInputControlled label={"Is it read: "} name={"isRead"} value={newBook.isRead}
+          <NumberInputControlled label={"Rating: "} name={"rating"}
+            value={newBook.rating}
+            change={(e)=>setNewBook({...newBook, rating: e.target.value})}/> 
+          <BooleanInputControlled label={"Is it read: "} name={"isRead"}
+            value={newBook.isRead}
             change={isReadInput} />
-          <AvailabilityInputControlled label={"Availability: "} name={"availability"} value={newBook.availability}
+          <AvailabilityInputControlled label={"Availability: "}
+            name={"availability"} value={newBook.availability}
             change={(e)=>setNewBook({...newBook, availability: e.target.value})} />
-          <button className="bg-zinc-900 bg-opacity-80 border rounded-lg mx-auto mt-7 p-5"
-            onClick={()=>sumbitToDB(newBook)}>Submit</button>
+          <button className="bg-zinc-900 bg-opacity-80 border rounded-lg
+            mx-auto mt-7 p-5" onClick={saveEdit}>Submit
+          </button>
         </div>
 
+{/* form left side */}
         <div className="flex flex-col ml-5">
-          <TextAreaInputControlled label={"Review: "} name={"review"} value={newBook.review}
+          <TextAreaInputControlled label={"Review: "} name={"review"}
+            value={newBook.review}
             change={(e)=>setNewBook({...newBook, review: e.target.value})} />
         </div>
       </div>
       
     </div>
-    
     </>
- 
   )
 }

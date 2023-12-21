@@ -5,6 +5,20 @@ import BookEditForm from '@/components/BookEditForm';
 import fs from 'fs';
 import { join } from 'path'
 
+type BookType = {
+  id: string,
+  title: string,
+  cover: string,
+  author: string,
+  isRead: boolean,
+  availability: string,
+  pages: number,
+  pageFormat: string,
+  year: number,
+  rating: number,
+  review: string,
+}
+
 export default async function EditBook({params}:{params:{editBookID:string}} ){
 
   async function findBook(bookID:string) {
@@ -20,17 +34,8 @@ export default async function EditBook({params}:{params:{editBookID:string}} ){
   const book = await findBook(params.editBookID);
   if(book == null) return <h2>Serwer Error</h2>
 
-  const bookNoId:{
-    title: string,
-    cover: string,
-    author: string,
-    isRead: boolean,
-    availability: string,
-    pages: number,
-    pageFormat: string,
-    year: number,
-    rating: number,
-    review: string,} = {
+  const bookNoId:BookType = {
+    id: book._id.toString(),
     title: book.title,
     cover: book.cover,
     author: book.author,
