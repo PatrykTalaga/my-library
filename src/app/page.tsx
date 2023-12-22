@@ -1,8 +1,6 @@
 import connectMongo from '../../utils/connectMongo';
 import Book from '../../models/bookModel';
 import { BookListElement } from "@/components/BookListElement";
-import Link from 'next/link';
-import { redirect } from 'next/navigation';
 
 export default async function Home() {
   
@@ -10,7 +8,8 @@ export default async function Home() {
     await connectMongo();
     const books = await Book.find();
     return <>
-    <div className='w-56 flex align-middle justify-center bg-zinc-900 bg-opacity-80 text-4xl mb-5 px-2 py-2 border rounded-lg hover:scale-110'>
+    <div className='w-56 flex align-middle justify-center bg-zinc-900
+      bg-opacity-80 text-4xl mb-5 px-2 py-2 border rounded-lg hover:scale-110'>
       <a href='/' className='text-3xl'>Refresh page</a>
     </div>
     

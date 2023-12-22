@@ -15,7 +15,8 @@ type BookType ={
   review: string,
 }
 
-export default async function addBook({ title, author, isRead, availability, pages, pageFormat, year, rating, review }: BookType){
+export default async function addBook({ title, author, isRead, availability,
+  pages, pageFormat, year, rating, review }: BookType){
 
   if (title === "") return "Book cannot have empty title";
 
@@ -27,7 +28,8 @@ export default async function addBook({ title, author, isRead, availability, pag
     const myBook = {
       title: title,
       author: author,
-      cover: "", //lack of field will mess up server whenever it checks path to img
+      cover: "", //lack of field will mess up server whenever
+                 //it checks path to img, it would return value undefined
       year: year,
       pages:  pages,
       pageFormat: pageFormat,

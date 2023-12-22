@@ -80,8 +80,11 @@ export default function AddBookForm() {
 
   return(
     <>
-    <div className="bg-zinc-900 bg-opacity-80 border rounded-lg flex
-      w-full mx-auto p-5 md:flex-col md:w-3/4">
+    <div className="bg-zinc-900 bg-opacity-80 border rounded-lg w-full
+    mx-auto p-5 flex flex-col justify-center items-center md:w-1/2">
+    <h1 className="text-5xl my-3 mx-auto">Add new book</h1>
+    <div className=" flex
+      w-full mx-auto p-5 md:flex-col">
         
 {/* form text side */}
       <div className="flex w-full justify-evenly mx-auto md:flex-col">
@@ -145,6 +148,7 @@ export default function AddBookForm() {
         </button>
       </form>
       </div>
+    </div>
     </div>
     </>
   )
