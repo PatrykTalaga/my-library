@@ -22,6 +22,7 @@ export default function AddBookForm() {
     year: 0,
     rating: 0,
     review: "",
+    comment : []
   });
 
   const [imgErrorMessage, setImgErrorMessage] = useState("");
@@ -69,7 +70,7 @@ export default function AddBookForm() {
       return;
       }
 
-    const saveResult = await addBook({...newBook,})
+    const saveResult = await addBook({...newBook})
     if(saveResult !== true) {
       setTitleError(saveResult);
       return;

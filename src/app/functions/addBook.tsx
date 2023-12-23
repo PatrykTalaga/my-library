@@ -13,10 +13,12 @@ type BookType ={
   year: number,
   rating: number,
   review: string,
+  comment: Array<string>
 }
 
-export default async function addBook({ title, author, isRead, availability,
-  pages, pageFormat, year, rating, review }: BookType){
+export default async function addBook({ title="", author="", isRead=false,
+  availability="not avaible", pages=0, pageFormat="", year=0, rating=0,
+  review="", comment=[] }: BookType){
 
   if (title === "") return "Book cannot have empty title";
 
@@ -28,15 +30,17 @@ export default async function addBook({ title, author, isRead, availability,
     const myBook = {
       title: title,
       author: author,
-      cover: "", //lack of field will mess up server whenever
-                 //it checks path to img, it would return value undefined
+      cover: "", //if cover exists is saved later in submitCover function;
+                 //lack of this field will mess up server whenever it checks 
+                 //path to img, it would return value undefined
       year: year,
       pages:  pages,
       pageFormat: pageFormat,
       isRead: isRead,
       availability: availability,
       rating: rating,
-      review: review
+      review: review,
+      comment: comment
     }
 
     const result = await Book.create(myBook);

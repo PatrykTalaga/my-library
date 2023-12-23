@@ -4,7 +4,9 @@ import BookDetails from '../../components/BookDetails';
 import Link from 'next/link';
 
 import fs from 'fs';
-import { join } from 'path'
+import { join } from 'path';
+
+import DeleteBookBtn from '@/components/DeleteBookBtn';
 
 type BookType = {
     _id: string,
@@ -19,7 +21,6 @@ type BookType = {
     rating: Number,
     review: String,
     comment: Array<string>
-  
 }
 
 export default async function BookID ( {params}:{params: {bookID:string}} ){
@@ -33,7 +34,6 @@ export default async function BookID ( {params}:{params: {bookID:string}} ){
       console.error(error);
     }
   }
-
 
   const book:BookType = await findBook(params.bookID[0]);
   if(book === null) {
@@ -61,9 +61,11 @@ export default async function BookID ( {params}:{params: {bookID:string}} ){
         </div>
         <BookDetails book={book} />
         <div className='flex justify-end  w-3/4'>
-          <button className='mt-5 text-xl bg-red-600 px-8 py-3
-           border-slate-950 rounded-lg hover:scale-110'>
-            Delete</button>
+          <DeleteBookBtn id={params.bookID[0]} />
+          {/* <button className='mt-5 text-xl bg-red-600 px-8 py-3 rounded-lg
+           border-slate-950 hover:scale-110'
+            onClick={()=>deleteBook(params.bookID[0])}>
+            Delete</button> */}
         </div>
       </div>
       

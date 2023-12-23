@@ -22,7 +22,6 @@ export function BookListElement ({book, id}:BookType)  {
         book.cover = "bg-dark.jpg"
     }}
 
-
   return (
     <Link href={`/${id}`} className="bg-zinc-900 bg-opacity-80 border
       rounded-lg p-5 w-64 hover:scale-105">
