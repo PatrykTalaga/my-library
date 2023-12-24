@@ -65,16 +65,21 @@ export default function BookEditForm ({
       try{
         if(file.type !== 'image/jpeg' && file.type !== 'image/png') {
           `${file.type}`
-          throw new Error(`Wrong file format, uploaded file format:`+
-           `${file.type}`);
+          /* throw new Error(`Wrong file format, uploaded file format:`+
+           `${file.type}`); */
+          setImgErrorMessage(`Wrong file format, uploaded file format:`+
+          `${file.type}`);
+          return;
         }
         if(file.size > 500000) {
-          throw new Error(`File Size is too big, current size: `+
-           `${(Math.floor(file.size/1000)/1000)}Mb`);
+          /* throw new Error(`File Size is too big, current size: `+
+           `${(Math.floor(file.size/1000)/1000)}Mb`); */
+          setImgErrorMessage(`File Size is too big, current size: `+
+          `${(Math.floor(file.size/1000)/1000)}Mb`);
+          return;
         }
       }catch(error){
         console.error(error);
-        setImgErrorMessage(error.message);
         return;
       }
       const result = await sumbitCover(formData, title);
@@ -101,8 +106,8 @@ export default function BookEditForm ({
 
   return(
     <>
-    <div className="bg-zinc-900 bg-opacity-80 border rounded-lg flex
-      w-full mx-auto p-5 my-7 md:flex-col md:justify-center md:items-center md:w-1/2">
+    <div className="bg-zinc-900 bg-opacity-80 border rounded-lg flex w-full
+      mx-auto p-5 my-7 md:flex-col md:justify-center md:items-center md:w-1/2">
         
 {/* cover */}
       <div className="flex flex-col lg:border-r">
@@ -131,9 +136,11 @@ export default function BookEditForm ({
           <div>
             <div className="flex justify-left">
               <label className="text-lg w-28 my-auto">Title: </label>
-              <input required type="text" name='title'  value={newBook.title || ""}
+              <input required type="text" name='title'
+                value={newBook.title || ""}
                 onChange={(e)=>setNewBook({...newBook, title: e.target.value})}
-                className="bg-zinc-900 bg-opacity-80 border rounded-md mx-3 my-1.5"/>
+                className="bg-zinc-900 bg-opacity-80 border rounded-md mx-3
+                my-1.5"/>
             </div>
           </div>
           <TextInputControlled label={"Author: "} name={"author"}
@@ -157,7 +164,6 @@ export default function BookEditForm ({
           <AvailabilityInputControlled label={"Availability: "}
             name={"availability"} value={newBook.availability}
             change={(e)=>setNewBook({...newBook, availability: e.target.value})} />
-          
         </div>
 
 {/* form right side */}
@@ -169,9 +175,7 @@ export default function BookEditForm ({
             mx-auto mt-7 p-5 hover:scale-110" onClick={saveEdit}>Submit
           </button>
         </div>
-        
       </div>
-      
     </div>
     </>
   )

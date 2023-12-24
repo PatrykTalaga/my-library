@@ -14,7 +14,6 @@ type BookType = {
     year: Number,
     rating: Number,
     review: String,
-    comment: Array<string>
   }
 }
 
@@ -37,12 +36,6 @@ export default function BookDetails ({book}:BookType)  {
         {book.rating && <p className="text-lg"><b>Rating:</b>{book.rating.toString()}</p>}
         {book.review !== "" && <p className="text-lg"><b>Review:</b> {book.review}</p>}
       </div>
-      {book.comment.length === 0 && <div className="mx-10">
-        <p className="text-2xl font-bold">Comments: </p>
-        {book.comment.length !== 0 && book.comment.map(comment => (
-          <p>{comment}</p>
-        ))}
-      </div>}
     </div>
   )
 }

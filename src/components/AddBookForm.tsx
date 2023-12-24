@@ -6,8 +6,8 @@ import { NumberInputControlled } from "./NumberInputControlled"
 import { BooleanInputControlled } from "./BooleanInputControlled"
 import { TextAreaInputControlled } from "./TextAreaInputControlled"
 import { AvailabilityInputControlled } from "./AvailabilityInputControlled"
-import sumbitCover from "@/app/functions/submitCover"
 import addBook from "@/app/functions/addBook"
+import addCover from "@/app/functions/addCover"
 
 export default function AddBookForm() {
 
@@ -42,20 +42,23 @@ export default function AddBookForm() {
       try{
         if(file.type !== 'image/jpeg' && file.type !== 'image/png') {
           `${file.type}`
-          throw new Error(`Wrong file format, uploaded file format:`+
-           `${file.type}`);
+          /* throw new Error(`Wrong file format, uploaded file format:`+
+           `${file.type}`); */
+          setImgErrorMessage(`Wrong file format, uploaded file format:`+
+          `${file.type}`);
+          return;
         }
         if(file.size > 500000) {
-          throw new Error(`File Size is too big, current size: `+
+          /* throw new Error(`File Size is too big, current size: `+
+           `${(Math.floor(file.size/1000)/1000)}Mb`); */
+           setImgErrorMessage(`File Size is too big, current size: `+
            `${(Math.floor(file.size/1000)/1000)}Mb`);
+           return;
         }
       }catch(error){
-        console.error(error);
-        setImgErrorMessage(error.message);
         return;
       }
-      const result = await sumbitCover(formData, newBook.title);
-      console.log(result)
+      const result = await addCover(formData, newBook.title);
       if(typeof(result) === 'string') {
         setNewBook({...newBook, cover: result});
         setImgErrorMessage("");}
@@ -63,8 +66,6 @@ export default function AddBookForm() {
   }
 
   async function saveEdit(){
-    console.log("Here")
-    console.log(newBook.title)
     if(newBook.title == "") {
       setTitleError("Book cannot have empty title");
       return;

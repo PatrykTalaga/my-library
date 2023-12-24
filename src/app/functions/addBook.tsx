@@ -13,7 +13,13 @@ type BookType ={
   year: number,
   rating: number,
   review: string,
-  comment: Array<string>
+  comment: Array<{
+    id:string,
+    createdAt:Date,
+    editedAt:Date,
+    user:string,
+    comment:string
+  }>
 }
 
 export default async function addBook({ title="", author="", isRead=false,
@@ -43,10 +49,9 @@ export default async function addBook({ title="", author="", isRead=false,
       comment: comment
     }
 
-    const result = await Book.create(myBook);
-    console.log(result)
+    /* const result = await Book.create(myBook); */ //returns object
+    await Book.create(myBook)
     return true;
-
   }
   catch (error) {
     console.error(error);
