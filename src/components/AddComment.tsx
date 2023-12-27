@@ -2,10 +2,14 @@
 
 import { useState } from "react";
 import addComment from "@/app/functions/addComment";
+import { useRouter } from "next/navigation";
+
+
 
 export default function AddComment({bookID}:{bookID:string}){
 
   const [comment, setComment] = useState("");
+  const router = useRouter();
 
   async function submitComment() {
     console.log(comment)
@@ -14,6 +18,10 @@ export default function AddComment({bookID}:{bookID:string}){
     const user="user2234-1";
     await addComment(bookID, comment, user)
     
+    // Force refresh the page
+    
+    /* router.replace(`/${bookID}`); */
+    router.refresh()
   }
 
   return(

@@ -4,6 +4,7 @@ import connectMongo from '../../../utils/connectMongo';
 import Book from '../../../models/bookModel';
 import convertDate from './covertDate';
 
+
 export default async function addComment(bookId:string, comment:string, user:string){
 
   console.log("Function submitComment")
@@ -38,6 +39,7 @@ export default async function addComment(bookId:string, comment:string, user:str
     console.log("test");
     console.log(book.createdAt);
     console.log(typeof(book.createdAt));
+
     
   }
   catch (error) {
