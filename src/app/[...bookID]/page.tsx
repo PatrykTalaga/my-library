@@ -12,8 +12,8 @@ import AddComment from '@/components/AddComment';
 
 type CommentType = {
   id: string,
-  createdAt: Date,
-  editedAt: Date,
+  createdAt: string,
+  editedAt: string,
   user: string,
   comment: string
 }
@@ -57,7 +57,7 @@ export default async function BookID ( {params}:{params: {bookID:string}} ){
         book.cover= "bg-dark.jpg"
     }}
     
-
+    console.log('here')
     return(
       <div className='flex flex-col items-center'>
         <div className='flex justify-between w-3/4'>
@@ -82,10 +82,14 @@ export default async function BookID ( {params}:{params: {bookID:string}} ){
             bg-opacity-80  my-2 px-2 py-2 border rounded-lg">Comments: </p>
         {book.comment.length !== 0 && 
           <ul>
-            {book.comment.map(comment =>(
-              <Comment key={comment.id} {...comment} />
+            {book.comment.map(item =>(
+              <Comment key={item.id} commentId={item.id}
+              bookId={params.bookID[0]}
+              createdAt={item.createdAt}
+              editedAt={item.editedAt}
+              user={item.user}
+              comment={item.comment} />
             ))}
-            
           </ul>
         }
         <AddComment bookID={params.bookID[0]} />

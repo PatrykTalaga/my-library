@@ -5,6 +5,7 @@ import { join } from 'path'
 import fs from 'fs';
 import connectMongo from '../../../utils/connectMongo';
 import Book from '../../../models/bookModel';
+import convertDate from './covertDate';
 
 
 export default async function sumbitCover(data: FormData, title:string){
@@ -12,6 +13,9 @@ export default async function sumbitCover(data: FormData, title:string){
   const file:File | null = data.get('cover') as unknown as File
   if(file.size !== 0) {
     const imageId = crypto.randomUUID();
+
+    const rawDate = new Date();
+    const date = convertDate(rawDate);
 
     try{
       await connectMongo();
@@ -36,6 +40,7 @@ export default async function sumbitCover(data: FormData, title:string){
       }
       //save new cover id in DB
       book.cover = imageId;
+      book.editedAt = date;
       await book.save();
       return(imageId); //return new cover Id to reload img
       }catch(err){

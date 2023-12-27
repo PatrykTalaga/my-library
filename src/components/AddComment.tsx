@@ -1,7 +1,6 @@
 "use client"
 
 import { useState } from "react";
-import { TextAreaInputControlled } from "./TextAreaInputControlled";
 import addComment from "@/app/functions/addComment";
 
 export default function AddComment({bookID}:{bookID:string}){
@@ -16,14 +15,14 @@ export default function AddComment({bookID}:{bookID:string}){
     await addComment(bookID, comment, user)
     
   }
-  
-  console.log(bookID);
 
   return(
     <>
-    <TextAreaInputControlled label="Comment" name="Comment" value={comment}
-      change={(e)=>setComment(e.target.value)}/>
-    <button className=""
+    <textarea rows={4}  name={comment} className="bg-zinc-900 bg-opacity-80 
+      border rounded-md my-2" value={comment || ""}
+      onChange={(e)=>setComment(e.target.value)}/>
+    <button className="mx-auto w-48 text-2xl p-2 mt-2 bg-zinc-900
+      bg-opacity-80 border rounded-md hover:scale-110"
     onClick={submitComment}>
       Add Comment
     </button>

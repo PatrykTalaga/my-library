@@ -16,7 +16,7 @@ export default function AddBookForm() {
     cover: "",
     author: "",
     isRead: false,
-    availability: "",
+    availability: "not avaible",
     pages: 0,
     pageFormat: "",
     year: 0,

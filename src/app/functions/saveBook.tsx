@@ -1,7 +1,9 @@
 "use server"
 
+//for editing book
 import connectMongo from '../../../utils/connectMongo';
 import Book from '../../../models/bookModel';
+import convertDate from './covertDate';
 
 type BookType ={
   id: string,
@@ -20,6 +22,9 @@ export default async function saveBook({ id, title, author, isRead, availability
 
   if (title === "") return "Book cannot have empty title";
 
+  const rawDate = new Date();
+  const date = convertDate(rawDate);
+
   try {
     await connectMongo();
     let book = await Book.findOne({ _id: id});
@@ -34,8 +39,9 @@ export default async function saveBook({ id, title, author, isRead, availability
     book.availability = availability;
     book.rating = rating;
     book.review = review;
+    book.editedAt = date;
 
-    const result = await book.save();
+    await book.save();
     return true;
 
   }

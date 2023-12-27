@@ -2,6 +2,7 @@
 
 import connectMongo from '../../../utils/connectMongo';
 import Book from '../../../models/bookModel';
+import convertDate from './covertDate';
 
 type BookType ={
   title: string,
@@ -28,6 +29,10 @@ export default async function addBook({ title="", author="", isRead=false,
 
   if (title === "") return "Book cannot have empty title";
 
+  const rawDate = new Date();
+  const date = convertDate(rawDate);
+  console.log(date);
+
   try {
     await connectMongo();
     let book = await Book.findOne({ title: title});
@@ -46,11 +51,14 @@ export default async function addBook({ title="", author="", isRead=false,
       availability: availability,
       rating: rating,
       review: review,
+      createdAt: date,
+      editedAt: date,
       comment: comment
     }
 
     /* const result = await Book.create(myBook); */ //returns object
-    await Book.create(myBook)
+    const result = await Book.create(myBook)
+    console.log(result);
     return true;
   }
   catch (error) {

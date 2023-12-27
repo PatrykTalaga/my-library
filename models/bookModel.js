@@ -2,8 +2,8 @@ import { Schema, model, models } from 'mongoose';
 
 const commentSchema = new Schema({
   id: String,
-  createdAt: Date,
-  editedAt: Date,
+  createdAt: String,
+  editedAt: String,
   user: String,
   comment: String
 });
@@ -23,7 +23,10 @@ const bookSchema = new Schema({
   availability: String,
   rating: Number,
   review: String,
+  createdAt: String,
+  editedAt: String,
   comment: [commentSchema]
+ 
   
 });
 

@@ -2,8 +2,8 @@
 
 import connectMongo from '../../../utils/connectMongo';
 import Book from '../../../models/bookModel';
+import convertDate from './covertDate';
 
-/* export default async function addComment({bookId, comment, user}:{bookId:string, comment:string, user:string}){ */
 export default async function addComment(bookId:string, comment:string, user:string){
 
   console.log("Function submitComment")
@@ -16,9 +16,13 @@ export default async function addComment(bookId:string, comment:string, user:str
     let book = await Book.findOne({ _id: bookId});
     if(book === null) return "Book of this title does not exists";
 
-    const date = new Date();
+    const rawDate = new Date();
+    const date = convertDate(rawDate);
+    console.log(date)
+    const id = crypto.randomUUID();
+
     const newComment = {
-      id: crypto.randomUUID(),
+      id: id,
       createdAt: date,
       editedAt: date,
       user: user,
@@ -31,6 +35,9 @@ export default async function addComment(bookId:string, comment:string, user:str
     const result = await book.save();
     console.log("result")
     console.log(result);
+    console.log("test");
+    console.log(book.createdAt);
+    console.log(typeof(book.createdAt));
     
   }
   catch (error) {
@@ -38,11 +45,3 @@ export default async function addComment(bookId:string, comment:string, user:str
     return("Server Error");
   }
 }
-
-/* comment: Array<{
-  id:string,
-  createdAt:Date,
-  editedAt:Date,
-  user:string,
-  comment:string
-}> */

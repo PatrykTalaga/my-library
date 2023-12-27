@@ -1,26 +1,24 @@
 "use client"
 
-export default function Comment({id, createdAt, editedAt, user, comment}:{
-  id: string,
-  createdAt: Date,
-  editedAt: Date,
+import deleteComment from "@/app/functions/deleteComment"
+import { redirect } from "next/navigation"
+
+export default function Comment({commentId, createdAt, bookId, editedAt, user, comment}:{
+  commentId: string,
+  bookId: string,
+  createdAt: string,
+  editedAt: string,
   user: string,
   comment: string
 }){
+  /* console.log(id); */
 
-  //convert date
-  const m = ["January", "February", "March", "April", "May", "June",
-  "July", "August", "September", "October", "November", "December"];
-
-  const convertData = (date:Date) =>  { return date.getDate() + ' ' +
-  m[date.getMonth()] + ' ' + date.getFullYear() + ", " +
-  date.getHours() + ":" + date.getMinutes();}
-
-  const createdAtFormated = convertData(createdAt);
-  const editedAtFormated = convertData(editedAt);
+  function handleDelete(){
+    deleteComment(bookId, commentId)
+    redirect(`/${bookId}`)
+  }
 
 
-  
   return(
     <li className=' mx-auto flex flex-col align-baseline justify-center
     bg-zinc-900 bg-opacity-80  my-2 px-2 py-2 border rounded-lg'>
@@ -28,12 +26,14 @@ export default function Comment({id, createdAt, editedAt, user, comment}:{
         <div className='flex justify-between'>
           <div className='flex py-1 my-1'>
             <p className='font-bold text-xl'>{user}</p>
-            {createdAtFormated === editedAtFormated && 
+            {/* <p className='text-xl text-zinc-400 ml-5'>
+                Posted: {createdAt}</p> */}
+            {createdAt === editedAt && 
               <p className='text-xl text-zinc-400 ml-5'>
-                Posted: {createdAtFormated}</p>}
-            {createdAtFormated !== editedAtFormated && 
+                Posted: {createdAt}</p>}
+            {createdAt !== editedAt && 
               <p className='text-xl text-zinc-400 ml-5'>
-                Edited: {editedAtFormated}</p>}
+                Edited: {editedAt}</p>}
           </div>
           <div className='flex'>
             <button className='my-1 mx-5 text-xl bg-orange-500 w-24
@@ -41,7 +41,8 @@ export default function Comment({id, createdAt, editedAt, user, comment}:{
               Edit
             </button>
             <button className='my-1 mx-5 text-xl bg-red-600 w-24
-              text-center py-1 rounded-lg order-slate-950 hover:scale-110'>
+              text-center py-1 rounded-lg order-slate-950 hover:scale-110'
+              onClick={handleDelete}>
               Delete
             </button>
           </div>

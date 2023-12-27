@@ -29,9 +29,11 @@ export function BookListElement ({book, id}:BookType)  {
       {fs.existsSync(path) && book.cover !== "" && <img className="my-2 mx-auto
         h-60 object-scale-down" src={`/bookCovers/${book.cover}`}>
       </img>}
-      <p className="text-lg"><b>Author:</b> {book.author}</p>
-      <p className="text-lg"><b>Read:</b> {book.isRead?"Yes":"No"}</p>
-      <p className="text-lg"><b>Avaibility:</b>{book.availability}</p>
+      {book.author !== "" && <p className="text-lg">
+        <b>Author:</b> {book.author}
+      </p>}
+      <p className="text-lg"><b>Read: </b> {book.isRead?"Yes":"No"}</p>
+      <p className="text-lg"><b>Avaibility: </b>{book.availability}</p>
     </Link>
   )
 }
