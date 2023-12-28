@@ -34,9 +34,6 @@ export default async function CommentsSection({bookId}:{bookId:string}){
   const[error, setError] = useState(null)
   
   useEffect(() => {
-    console.log(bookId)
-    console.log(book)
-    /* async () => { setBook(await getBookById(bookId)) } */
     async () => {
       try{
         const myBook = await getBookById(bookId);
@@ -44,21 +41,15 @@ export default async function CommentsSection({bookId}:{bookId:string}){
           throw new Error("Book of this title does not exists")
         }
         setBook(myBook);
-        console.log(book)
         setError(null);
       }catch(error){
         console.error(error);
       }
       finally{
         setLoading(false);
-      }
-      
+      }   
     }
   },[]);
-
-  console.log(bookId)
-  console.log(book)
-
 
   return(
     <div className=" w-3/4 mx-auto flex

@@ -5,10 +5,8 @@ import Book from '../../../models/bookModel';
 import convertDate from './covertDate';
 
 
-export default async function addComment(bookId:string, comment:string, user:string){
-
-  console.log("Function submitComment")
-  console.log(bookId)
+export default async function addComment(bookId:string, comment:string,
+  user:string){
 
   if (comment === "") return "Comment cannot be empty";
 
@@ -19,7 +17,6 @@ export default async function addComment(bookId:string, comment:string, user:str
 
     const rawDate = new Date();
     const date = convertDate(rawDate);
-    console.log(date)
     const id = crypto.randomUUID();
 
     const newComment = {
@@ -29,18 +26,9 @@ export default async function addComment(bookId:string, comment:string, user:str
       user: user,
       comment: comment
     }
-    console.log("adding new comment: ")
-    console.log(newComment)
 
     book.comment.push(newComment);
-    const result = await book.save();
-    console.log("result")
-    console.log(result);
-    console.log("test");
-    console.log(book.createdAt);
-    console.log(typeof(book.createdAt));
-
-    
+    await book.save();  
   }
   catch (error) {
     console.error(error);

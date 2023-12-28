@@ -8,6 +8,7 @@ import { TextAreaInputControlled } from "./TextAreaInputControlled"
 import { AvailabilityInputControlled } from "./AvailabilityInputControlled"
 import sumbitCover from "@/app/functions/submitCover"
 import saveBook from "@/app/functions/saveBook"
+import { useRouter } from "next/navigation";
 
 type BookType = {
   id:string,
@@ -49,6 +50,7 @@ export default function BookEditForm ({
     rating: rating,
     review: review,
   });
+  const router = useRouter();
 
   const [imgErrorMessage, setImgErrorMessage] = useState("");
   const [titleError, setTitleError] = useState("");
@@ -65,15 +67,11 @@ export default function BookEditForm ({
       try{
         if(file.type !== 'image/jpeg' && file.type !== 'image/png') {
           `${file.type}`
-          /* throw new Error(`Wrong file format, uploaded file format:`+
-           `${file.type}`); */
           setImgErrorMessage(`Wrong file format, uploaded file format:`+
           `${file.type}`);
           return;
         }
         if(file.size > 500000) {
-          /* throw new Error(`File Size is too big, current size: `+
-           `${(Math.floor(file.size/1000)/1000)}Mb`); */
           setImgErrorMessage(`File Size is too big, current size: `+
           `${(Math.floor(file.size/1000)/1000)}Mb`);
           return;
@@ -85,7 +83,9 @@ export default function BookEditForm ({
       const result = await sumbitCover(formData, title);
       if(typeof(result) === 'string') {
         setNewBook({...newBook, cover: result});
-        setImgErrorMessage("");}
+        setImgErrorMessage("");
+        router.refresh();
+      }
     } 
   }
 
@@ -102,6 +102,7 @@ export default function BookEditForm ({
       }
     setTitleError("")
     alert("Edit Saved")
+    router.refresh();
   }
 
   return(

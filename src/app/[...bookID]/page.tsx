@@ -57,7 +57,6 @@ export default async function BookID ( {params}:{params: {bookID:string}} ){
         book.cover= "bg-dark.jpg"
     }}
     
-    console.log('here')
     return(
       <div className='flex flex-col items-center'>
         <div className='flex justify-between w-3/4'>
@@ -95,9 +94,6 @@ export default async function BookID ( {params}:{params: {bookID:string}} ){
         <AddComment bookID={params.bookID[0]} />
         </div>
       </div>
-      
-      
     )
   }
-
 }

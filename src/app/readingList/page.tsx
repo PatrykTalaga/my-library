@@ -43,7 +43,8 @@ export default async function ReadingList() {
         {list.map(entry => (
           <ReadingListEntry key={entry._id.toString()} toggleRead={toggleRead}
             deleteEntry={deleteEntry} title={entry.title} author={entry.author}
-            _id={entry._id.toString()} year={entry.year} isRead={entry.isRead} />
+            _id={entry._id.toString()} year={entry.year}
+            isRead={entry.isRead} />
         ))}
         <Link href={"/readingList/newListEntry"} className="text-2xl border
           rounded-lg px-3 py-2 my-5 flex justify-center hover:scale-110">

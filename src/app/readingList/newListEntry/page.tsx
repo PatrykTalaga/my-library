@@ -13,19 +13,13 @@ async function addNewListEntry(data: FormData){
     year: data.get('year')?.valueOf(),
     isRead: false
   }
-  console.log(listEntry)
 
   try {
-    console.log('CONNECTING TO MONGO');
     await connectMongo();
-    console.log('CONNECTED TO MONGO');
-
-    console.log('CREATING DOCUMENT');
     await List.create(listEntry);
-    console.log('CREATED DOCUMENT');
   }
   catch (error) {
-    console.log(error);
+    console.error(error);
     return
   }
   redirect("/readingList/");

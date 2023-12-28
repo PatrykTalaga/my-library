@@ -4,6 +4,7 @@ import BookEditForm from '@/components/BookEditForm';
 
 import fs from 'fs';
 import { join } from 'path'
+import Link from 'next/link';
 
 type BookType = {
   id: string,
@@ -58,8 +59,9 @@ export default async function EditBook({params}:{params:{editBookID:string}} ){
     <BookEditForm {...bookNoId} />
     <div className='w-48 bg-zinc-900 bg-opacity-80 mb-5 border px-5 py-1
       rounded-lg hover:scale-110 mx-auto'>
-      <a href={`/${params.editBookID}`} className=' text-4xl'>
-      Go Back</a>
+      <Link href={`/${params.editBookID}`} className=' text-4xl'>
+        Go Back
+      </Link>
     </div>
     </>
   )

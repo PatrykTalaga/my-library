@@ -9,6 +9,8 @@ import { AvailabilityInputControlled } from "./AvailabilityInputControlled"
 import addBook from "@/app/functions/addBook"
 import addCover from "@/app/functions/addCover"
 
+import { useRouter } from "next/navigation";
+
 export default function AddBookForm() {
 
   const [newBook, setNewBook] = useState({
@@ -24,6 +26,7 @@ export default function AddBookForm() {
     review: "",
     comment : []
   });
+  const router = useRouter();
 
   const [imgErrorMessage, setImgErrorMessage] = useState("");
   const [titleError, setTitleError] = useState("");
@@ -42,15 +45,11 @@ export default function AddBookForm() {
       try{
         if(file.type !== 'image/jpeg' && file.type !== 'image/png') {
           `${file.type}`
-          /* throw new Error(`Wrong file format, uploaded file format:`+
-           `${file.type}`); */
           setImgErrorMessage(`Wrong file format, uploaded file format:`+
           `${file.type}`);
           return;
         }
         if(file.size > 500000) {
-          /* throw new Error(`File Size is too big, current size: `+
-           `${(Math.floor(file.size/1000)/1000)}Mb`); */
            setImgErrorMessage(`File Size is too big, current size: `+
            `${(Math.floor(file.size/1000)/1000)}Mb`);
            return;
@@ -62,7 +61,9 @@ export default function AddBookForm() {
       if(typeof(result) === 'string') {
         setNewBook({...newBook, cover: result});
         setImgErrorMessage("");}
-    } 
+    }
+    router.refresh()
+
   }
 
   async function saveEdit(){

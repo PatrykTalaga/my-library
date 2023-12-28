@@ -31,7 +31,7 @@ export default async function addBook({ title="", author="", isRead=false,
 
   const rawDate = new Date();
   const date = convertDate(rawDate);
-  console.log(date);
+
 
   try {
     await connectMongo();
@@ -57,8 +57,7 @@ export default async function addBook({ title="", author="", isRead=false,
     }
 
     /* const result = await Book.create(myBook); */ //returns object
-    const result = await Book.create(myBook)
-    console.log(result);
+    await Book.create(myBook)
     return true;
   }
   catch (error) {

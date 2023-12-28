@@ -18,7 +18,8 @@ type BookType ={
   review: string,
 }
 
-export default async function saveBook({ id, title, author, isRead, availability, pages, pageFormat, year, rating, review }: BookType){
+export default async function saveBook({ id, title, author, isRead,
+  availability, pages, pageFormat, year, rating, review }: BookType){
 
   if (title === "") return "Book cannot have empty title";
 
@@ -28,7 +29,9 @@ export default async function saveBook({ id, title, author, isRead, availability
   try {
     await connectMongo();
     let book = await Book.findOne({ _id: id});
-    if( book === null && book.title !== title) return "Book of this title does not exist";
+    if( book === null && book.title !== title) {
+      return "Book of this title does not exist";
+    }
     
     book.title = title;
     book.author = author;

@@ -5,10 +5,6 @@ import Book from '../../../models/bookModel';
 
 export default async function getBookById(bookId:string) { 
 
-  console.log("Function submitComment")
-  console.log(bookId)
-
-
   try {
     await connectMongo();
     let book = await Book.findOne({ _id: bookId});

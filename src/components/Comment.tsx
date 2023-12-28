@@ -1,23 +1,26 @@
 "use client"
 
 import deleteComment from "@/app/functions/deleteComment"
-import { redirect } from "next/navigation"
+import { useRouter } from "next/navigation";
 
-export default function Comment({commentId, createdAt, bookId, editedAt, user, comment}:{
+export default function Comment({commentId, createdAt, bookId, editedAt,
+  user, comment}:
+  {
   commentId: string,
   bookId: string,
   createdAt: string,
   editedAt: string,
   user: string,
   comment: string
-}){
-  /* console.log(id); */
+  }
+){
+
+  const router = useRouter();
 
   function handleDelete(){
     deleteComment(bookId, commentId)
-    redirect(`/${bookId}`)
+    router.refresh()
   }
-
 
   return(
     <li className=' mx-auto flex flex-col align-baseline justify-center
@@ -26,8 +29,6 @@ export default function Comment({commentId, createdAt, bookId, editedAt, user, c
         <div className='flex justify-between'>
           <div className='flex py-1 my-1'>
             <p className='font-bold text-xl'>{user}</p>
-            {/* <p className='text-xl text-zinc-400 ml-5'>
-                Posted: {createdAt}</p> */}
             {createdAt === editedAt && 
               <p className='text-xl text-zinc-400 ml-5'>
                 Posted: {createdAt}</p>}
