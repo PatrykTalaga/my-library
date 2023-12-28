@@ -29,8 +29,7 @@ export default async function addBook({ title="", author="", isRead=false,
 
   if (title === "") return "Book cannot have empty title";
 
-  const rawDate = new Date();
-  const date = convertDate(rawDate);
+  const date = new Date();
 
 
   try {

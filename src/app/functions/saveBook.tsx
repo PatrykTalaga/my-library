@@ -3,7 +3,6 @@
 //for editing book
 import connectMongo from '../../../utils/connectMongo';
 import Book from '../../../models/bookModel';
-import convertDate from './covertDate';
 
 type BookType ={
   id: string,
@@ -22,9 +21,8 @@ export default async function saveBook({ id, title, author, isRead,
   availability, pages, pageFormat, year, rating, review }: BookType){
 
   if (title === "") return "Book cannot have empty title";
-
-  const rawDate = new Date();
-  const date = convertDate(rawDate);
+ 
+  const date = new Date();
 
   try {
     await connectMongo();

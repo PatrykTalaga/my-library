@@ -12,8 +12,8 @@ import AddComment from '@/components/AddComment';
 
 type CommentType = {
   id: string,
-  createdAt: string,
-  editedAt: string,
+  createdAt: Date,
+  editedAt: Date,
   user: string,
   comment: string
 }
@@ -39,6 +39,12 @@ export default async function BookID ( {params}:{params: {bookID:string}} ){
     try{
       await connectMongo();
       const book = await Book.findOne({ _id: bookID});
+      book.comment.sort(function(a:CommentType, b:CommentType) {
+        return a.editedAt.getTime() - b.editedAt.getTime();
+        
+        /* return a.editedAt - b.editedAt; */
+      })
+      book.comment.reverse();
       return book;
     }catch(error){
       console.error(error);
