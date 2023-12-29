@@ -4,7 +4,6 @@ import { join } from 'path'
 
 type BookType = {
   book: {
-    /* _id: string, */
     title: string,
     cover: string,
     author: string,

@@ -2,6 +2,8 @@ import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 import './globals.css'
 import MainHeaderLink from '@/components/MainHeaderLink'
+import Link from 'next/link'
+import SearchComponent from '@/components/SearchComponent'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -24,9 +26,13 @@ export default function RootLayout({
           <MainHeaderLink label="Books" link="/" />
           <MainHeaderLink label="Add Book" link="/addBook" />
           <MainHeaderLink label="Reading List" link="/readingList" />
-          <p className='bg-zinc-900 bg-opacity-80 text-4xl mb-5 border px-5
+          {/* <Link href={'/search'} className='bg-zinc-900 bg-opacity-80 text-4xl mb-5 border px-5
             py-3 rounded-lg mr-5 ml-auto hover:scale-110'>
-            Search</p>
+            Search</Link> */}
+          <SearchComponent />
+          {/* <p className='bg-zinc-900 bg-opacity-80 text-4xl mb-5 border px-5
+            py-3 rounded-lg mr-5 ml-auto hover:scale-110'>
+            Search</p> */}
         </div>
         {children}
         </body>
