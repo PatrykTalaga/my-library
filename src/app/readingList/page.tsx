@@ -3,8 +3,12 @@ import List from "../../../models/listModel";
 import Link from "next/link";
 import { ReadingListEntry } from "@/components/ReadingListEntry";
 import { redirect } from "next/navigation";
+import { options } from "../api/auth/[...nextauth]/options";
+import { getServerSession } from "next-auth";
 
 export default async function ReadingList() {
+  const session = await getServerSession(options);
+
   async function toggleRead(id: string, read: boolean) {
     "use server";
 
@@ -54,13 +58,15 @@ export default async function ReadingList() {
               isRead={entry.isRead}
             />
           ))}
-          <Link
-            href={"/readingList/newListEntry"}
-            className="text-2xl border
+          {session && session.user.role == "Admin" && (
+            <Link
+              href={"/readingList/newListEntry"}
+              className="text-2xl border
           rounded-lg px-3 py-2 my-5 flex justify-center hover:scale-110"
-          >
-            Add new book to read
-          </Link>
+            >
+              Add new book to read
+            </Link>
+          )}
         </div>
       </div>
     </>

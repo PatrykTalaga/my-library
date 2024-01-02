@@ -9,12 +9,15 @@ import { join } from "path";
 import DeleteBookBtn from "@/components/DeleteBookBtn";
 import Comment from "@/components/Comment";
 import AddComment from "@/components/AddComment";
+import { getServerSession } from "next-auth";
+import { options } from "../api/auth/[...nextauth]/options";
 
 type CommentType = {
   id: string;
   createdAt: Date;
   editedAt: Date;
-  user: string;
+  userName: string;
+  userId: string;
   comment: string;
 };
 
@@ -65,6 +68,8 @@ export default async function BookID({
       }
     }
 
+    const session = await getServerSession(options);
+
     return (
       <div className="flex flex-col items-center">
         <div className="flex justify-between w-3/4">
@@ -77,19 +82,23 @@ export default async function BookID({
               Refresh page
             </a>
           </div>
-          <Link
-            href={`/editBooks/${params.bookID[0]}`}
-            className="mb-5 text-xl
+          {session && session.user.role == "Admin" && (
+            <Link
+              href={`/editBooks/${params.bookID[0]}`}
+              className="mb-5 text-xl
             bg-orange-500 w-28 text-center py-3 border-slate-950 rounded-lg
             hover:scale-110"
-          >
-            Edit
-          </Link>
+            >
+              Edit
+            </Link>
+          )}
         </div>
         <BookDetails book={book} />
-        <div className="flex justify-end  w-3/4">
-          <DeleteBookBtn id={params.bookID[0]} />
-        </div>
+        {session && session.user.role == "Admin" && (
+          <div className="flex justify-end  w-3/4">
+            <DeleteBookBtn id={params.bookID[0]} />
+          </div>
+        )}
         <div
           className=" w-3/4 mx-auto flex
           flex-col align-baseline justify-center"
@@ -109,13 +118,20 @@ export default async function BookID({
                   bookId={params.bookID[0]}
                   createdAt={item.createdAt}
                   editedAt={item.editedAt}
-                  user={item.user}
+                  userName={item.userName}
+                  userId={item.userId}
                   comment={item.comment}
                 />
               ))}
             </ul>
           )}
-          <AddComment bookID={params.bookID[0]} />
+          {session && (
+            <AddComment
+              bookID={params.bookID[0]}
+              userName={session.user.name}
+              userId={session.user.id}
+            />
+          )}
         </div>
       </div>
     );

@@ -21,4 +21,4 @@ export default withAuth(
   }
 );
 
-export const config = { matcher: ["/addBook", "/readingList"] };
+export const config = { matcher: ["/addBook"] };

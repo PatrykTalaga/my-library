@@ -3,9 +3,8 @@
 import convertDate from "@/app/functions/covertDate";
 import deleteComment from "@/app/functions/deleteComment";
 import editComment from "@/app/functions/editComment";
-import { redirect, useRouter } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
-
 import { useSession } from "next-auth/react";
 
 export default function Comment({
@@ -13,14 +12,16 @@ export default function Comment({
   createdAt,
   bookId,
   editedAt,
-  user,
+  userName,
+  userId,
   comment,
 }: {
   commentId: string;
   bookId: string;
   createdAt: Date;
   editedAt: Date;
-  user: string;
+  userName: string;
+  userId: string;
   comment: string;
 }) {
   const [text, setText] = useState(comment);
@@ -38,7 +39,7 @@ export default function Comment({
   function saveComment() {
     /* router.refresh() */ //without edit comment will use date at which
     //page was opend
-    editComment(bookId, commentId, text, user);
+    editComment(bookId, commentId, text, userName, userId);
     setEditStatus(true);
     router.refresh(); //show new date to the user
   }
@@ -46,7 +47,7 @@ export default function Comment({
   const createdAtString = convertDate(createdAt);
   const editedAtString = convertDate(editedAt);
 
-  console.log(session);
+  /* console.log(session); */
   return (
     <li
       className=" mx-auto flex flex-col align-baseline justify-center
@@ -55,7 +56,7 @@ export default function Comment({
       <div className="flex flex-col">
         <div className="flex justify-between">
           <div className="flex py-1 my-1">
-            <p className="font-bold text-xl">{user}</p>
+            <p className="font-bold text-xl">{userName}</p>
             {createdAtString === editedAtString && (
               <p className="text-xl text-zinc-400 ml-5">
                 Posted: {createdAtString}
@@ -68,20 +69,26 @@ export default function Comment({
             )}
           </div>
           <div className="flex">
-            <button
-              className="my-1 mx-5 text-xl bg-orange-500 w-24
+            {session &&
+              (userId == session?.user.id || session.user.role == "Admin") && (
+                <button
+                  className="my-1 mx-5 text-xl bg-orange-500 w-24
              text-center py-1 border-slate-950 rounded-lg hover:scale-110"
-              onClick={() => setEditStatus(false)}
-            >
-              Edit
-            </button>
-            <button
-              className="my-1 mx-5 text-xl bg-red-600 w-24
+                  onClick={() => setEditStatus(false)}
+                >
+                  Edit
+                </button>
+              )}
+            {session &&
+              (userId == session?.user.id || session.user.role == "Admin") && (
+                <button
+                  className="my-1 mx-5 text-xl bg-red-600 w-24
               text-center py-1 rounded-lg order-slate-950 hover:scale-110"
-              onClick={handleDelete}
-            >
-              Delete
-            </button>
+                  onClick={handleDelete}
+                >
+                  Delete
+                </button>
+              )}
           </div>
         </div>
         <div className="flex flex-col items-center mx-2 mt-1">

@@ -7,7 +7,8 @@ export default async function editComment(
   bookId: string,
   commentId: string,
   comment: string,
-  user: string
+  userName: string,
+  userId: string
 ) {
   if (comment === "") return "Comment cannot be empty";
 
@@ -25,7 +26,8 @@ export default async function editComment(
       id: commentId,
       createdAt: oldComment[0].createdAt,
       editedAt: date,
-      user: user,
+      userName: userName,
+      userId: userId,
       comment: comment,
     };
 

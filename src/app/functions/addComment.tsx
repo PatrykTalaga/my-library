@@ -6,7 +6,8 @@ import Book from "../../../models/bookModel";
 export default async function addComment(
   bookId: string,
   comment: string,
-  user: string
+  userName: string,
+  userId: string
 ) {
   if (comment === "") return "Comment cannot be empty";
 
@@ -22,12 +23,17 @@ export default async function addComment(
       id: id,
       createdAt: date,
       editedAt: date,
-      user: user,
+      userName: userName,
+      userId: userId,
       comment: comment,
     };
+    console.log("newComment: ");
+    console.log(newComment);
 
     book.comment.push(newComment);
     await book.save();
+    /* console.log("book: ");
+    console.log(book); */
   } catch (error) {
     console.error(error);
     return "Server Error";

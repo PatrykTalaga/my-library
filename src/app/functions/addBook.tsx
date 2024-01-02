@@ -18,7 +18,8 @@ type BookType = {
     id: string;
     createdAt: Date;
     editedAt: Date;
-    user: string;
+    userName: string;
+    userId: string;
     comment: string;
   }>;
 };

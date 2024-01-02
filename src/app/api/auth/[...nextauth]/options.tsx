@@ -10,12 +10,13 @@ export const options: NextAuthOptions = {
   providers: [
     GitHubProvider({
       profile(profile: GithubProfile) {
-        console.log("Profile Github : ", profile);
+        /* console.log("Profile Github : ", profile); */
         let userRole = "Github User";
         if (profile?.email === "patryk.j.talaga@gmail.com") userRole = "Admin";
         return {
-          ...profile,
+          /* ...profile, // if you want all from github */
           id: profile.id.toString(),
+          name: profile.name || profile.login,
           role: userRole,
         };
       },
@@ -26,9 +27,10 @@ export const options: NextAuthOptions = {
       profile(profile: GoogleProfile) {
         let userRole = "Google User";
         return {
-          ...profile,
           id: profile.sub,
+          name: profile.name,
           role: userRole,
+          /* ...profile, //same as above */
         };
       },
       clientId: process.env.GOOGLE_ID as string,
@@ -52,7 +54,7 @@ export const options: NextAuthOptions = {
         //Normally retrieve users from database, here is hard coded for a single user (admin)
         const user = {
           id: "117as23312aas1",
-          name: "Patriv",
+          name: "Patric",
           password: "22@s1za1ds4A",
           role: "Admin",
         };
@@ -71,11 +73,25 @@ export const options: NextAuthOptions = {
 
   callbacks: {
     async jwt({ token, user }) {
-      if (user) token.role = user.role;
+      /* if (user) token.role = user.role; */
+
+      if (user) {
+        token.role = user.role;
+        token.id = user.id;
+        token.name = user.name || "username";
+      }
+
       return token;
     },
     async session({ session, token }) {
-      if (session?.user) session.user.role = token.role;
+      /* if (session?.user) session.user.role = token.role; */
+
+      if (session?.user) {
+        session.user.role = token.role;
+        session.user.id = token.id;
+        session.user.name = token.name;
+      }
+
       return session;
     },
   },
