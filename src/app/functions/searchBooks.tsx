@@ -1,15 +1,14 @@
-"use server"
+"use server";
 
-import connectMongo from '../../../utils/connectMongo';
-import Book from '../../../models/bookModel';
+import connectMongo from "../../../utils/connectMongo";
+import Book from "../../../models/bookModel";
 
-export default async function searchBooks(text:string){
-  try{
+export default async function searchBooks(text: string) {
+  try {
     await connectMongo();
-    if(await Book.findOne({title: { $regex: text }}) !== null) return true;
+    if ((await Book.findOne({ title: { $regex: text } })) !== null) return true;
     return false;
-    
-  }catch(error){
+  } catch (error) {
     console.error(error);
     return "Server Error";
   }

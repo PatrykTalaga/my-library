@@ -1,11 +1,11 @@
-import { Schema, model, models } from 'mongoose';
+import { Schema, model, models } from "mongoose";
 
 const commentSchema = new Schema({
   id: String,
   createdAt: Date,
   editedAt: Date,
   user: String,
-  comment: String
+  comment: String,
 });
 
 const bookSchema = new Schema({
@@ -25,11 +25,9 @@ const bookSchema = new Schema({
   review: String,
   createdAt: Date,
   editedAt: Date,
-  comment: [commentSchema]
- 
-  
+  comment: [commentSchema],
 });
 
-const Book = models.Book || model('Book', bookSchema);
+const Book = models.Book || model("Book", bookSchema);
 
 export default Book;

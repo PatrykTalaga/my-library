@@ -1,4 +1,4 @@
-import { Schema, model, models } from 'mongoose';
+import { Schema, model, models } from "mongoose";
 
 const listSchema = new Schema({
   title: {
@@ -11,6 +11,6 @@ const listSchema = new Schema({
   isRead: Boolean,
 });
 
-const List = models.List || model('List', listSchema);
+const List = models.List || model("List", listSchema);
 
 export default List;

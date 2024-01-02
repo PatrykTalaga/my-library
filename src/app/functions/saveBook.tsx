@@ -1,36 +1,45 @@
-"use server"
+"use server";
 
 //for editing book
-import connectMongo from '../../../utils/connectMongo';
-import Book from '../../../models/bookModel';
+import connectMongo from "../../../utils/connectMongo";
+import Book from "../../../models/bookModel";
 
-type BookType ={
-  id: string,
-  title: string,
-  author: string,
-  isRead: boolean,
-  availability: string,
-  pages: number,
-  pageFormat: string,
-  year: number,
-  rating: number,
-  review: string,
-}
+type BookType = {
+  id: string;
+  title: string;
+  author: string;
+  isRead: boolean;
+  availability: string;
+  pages: number;
+  pageFormat: string;
+  year: number;
+  rating: number;
+  review: string;
+};
 
-export default async function saveBook({ id, title, author, isRead,
-  availability, pages, pageFormat, year, rating, review }: BookType){
-
+export default async function saveBook({
+  id,
+  title,
+  author,
+  isRead,
+  availability,
+  pages,
+  pageFormat,
+  year,
+  rating,
+  review,
+}: BookType) {
   if (title === "") return "Book cannot have empty title";
- 
+
   const date = new Date();
 
   try {
     await connectMongo();
-    let book = await Book.findOne({ _id: id});
-    if( book === null && book.title !== title) {
+    let book = await Book.findOne({ _id: id });
+    if (book === null && book.title !== title) {
       return "Book of this title does not exist";
     }
-    
+
     book.title = title;
     book.author = author;
     book.year = year;
@@ -44,10 +53,8 @@ export default async function saveBook({ id, title, author, isRead,
 
     await book.save();
     return true;
-
-  }
-  catch (error) {
+  } catch (error) {
     console.error(error);
-    return("Server Error");
+    return "Server Error";
   }
 }

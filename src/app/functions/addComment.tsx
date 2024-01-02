@@ -1,17 +1,19 @@
-"use server"
+"use server";
 
-import connectMongo from '../../../utils/connectMongo';
-import Book from '../../../models/bookModel';
+import connectMongo from "../../../utils/connectMongo";
+import Book from "../../../models/bookModel";
 
-export default async function addComment(bookId:string, comment:string,
-  user:string){
-
+export default async function addComment(
+  bookId: string,
+  comment: string,
+  user: string
+) {
   if (comment === "") return "Comment cannot be empty";
 
   try {
     await connectMongo();
-    let book = await Book.findOne({ _id: bookId});
-    if(book === null) return "Book of this title does not exists";
+    let book = await Book.findOne({ _id: bookId });
+    if (book === null) return "Book of this title does not exists";
 
     const date = new Date();
     const id = crypto.randomUUID();
@@ -21,14 +23,13 @@ export default async function addComment(bookId:string, comment:string,
       createdAt: date,
       editedAt: date,
       user: user,
-      comment: comment
-    }
+      comment: comment,
+    };
 
     book.comment.push(newComment);
-    await book.save();  
-  }
-  catch (error) {
+    await book.save();
+  } catch (error) {
     console.error(error);
-    return("Server Error");
+    return "Server Error";
   }
 }
