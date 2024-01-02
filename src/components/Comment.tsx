@@ -3,8 +3,10 @@
 import convertDate from "@/app/functions/covertDate";
 import deleteComment from "@/app/functions/deleteComment";
 import editComment from "@/app/functions/editComment";
-import { useRouter } from "next/navigation";
+import { redirect, useRouter } from "next/navigation";
 import { useState } from "react";
+
+import { useSession } from "next-auth/react";
 
 export default function Comment({
   commentId,
@@ -24,6 +26,9 @@ export default function Comment({
   const [text, setText] = useState(comment);
   const [editStatus, setEditStatus] = useState(true);
   const router = useRouter();
+  const { data: session } = useSession({
+    required: false,
+  });
 
   function handleDelete() {
     deleteComment(bookId, commentId);
@@ -41,6 +46,7 @@ export default function Comment({
   const createdAtString = convertDate(createdAt);
   const editedAtString = convertDate(editedAt);
 
+  console.log(session);
   return (
     <li
       className=" mx-auto flex flex-col align-baseline justify-center

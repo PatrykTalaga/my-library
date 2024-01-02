@@ -49,7 +49,7 @@ export const options: NextAuthOptions = {
         },
       },
       async authorize(credentials) {
-        //Normally retrive useres from database, here is hardcoded for a single user (admin)
+        //Normally retrieve users from database, here is hard coded for a single user (admin)
         const user = {
           id: "117as23312aas1",
           name: "Patriv",
