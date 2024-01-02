@@ -1,13 +1,17 @@
-"use client"
+
 import AddBookForm from '@/components/AddBookForm';
-import { getSession } from 'next-auth/react';
+import { getServerSession } from 'next-auth';
 import { redirect } from "next/navigation";
+import { options } from '../api/auth/[...nextauth]/options';
 
 export default async function AddBook() {
-  const session = await getSession();
+  const session = await getServerSession(options);
+  console.log(session)
+  console.log(session?.user)
+  console.log(session?.user.role)
 
   if(!session) {
-    redirect("/api/auth/signin?callbackUrl=/");
+    redirect("/api/auth/signin?callbackUrl=/addBook");
   };
 
   return <>
