@@ -37,17 +37,14 @@ export default function Comment({
   }
 
   function saveComment() {
-    /* router.refresh() */ //without edit comment will use date at which
-    //page was opend
     editComment(bookId, commentId, text, userName, userId);
     setEditStatus(true);
-    router.refresh(); //show new date to the user
+    router.refresh();
   }
 
   const createdAtString = convertDate(createdAt);
   const editedAtString = convertDate(editedAt);
 
-  /* console.log(session); */
   return (
     <li
       className=" mx-auto flex flex-col align-baseline justify-center

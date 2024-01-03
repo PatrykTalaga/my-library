@@ -3,6 +3,9 @@
 //for editing book
 import connectMongo from "../../../utils/connectMongo";
 import Book from "../../../models/bookModel";
+import { getServerSession } from "next-auth";
+import { options } from "../api/auth/[...nextauth]/options";
+import { redirect } from "next/navigation";
 
 type BookType = {
   id: string;
@@ -29,6 +32,11 @@ export default async function saveBook({
   rating,
   review,
 }: BookType) {
+  const session = await getServerSession(options);
+  if (!session) {
+    redirect("/api/auth/signin?callbackUrl=/");
+  }
+
   if (title === "") return "Book cannot have empty title";
 
   const date = new Date();

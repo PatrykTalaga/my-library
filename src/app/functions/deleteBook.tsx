@@ -5,8 +5,14 @@ import Book from "../../../models/bookModel";
 import connectMongo from "../../../utils/connectMongo";
 import { join } from "path";
 import fs from "fs";
+import { getServerSession } from "next-auth";
+import { options } from "../api/auth/[...nextauth]/options";
 
 export default async function deleteBook(id: string) {
+  const session = await getServerSession(options);
+  if (!session) {
+    redirect("/api/auth/signin?callbackUrl=/");
+  }
   try {
     await connectMongo();
     //check if book exists

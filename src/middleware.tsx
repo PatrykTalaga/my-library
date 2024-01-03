@@ -3,16 +3,19 @@ import { NextResponse } from "next/server";
 
 export default withAuth(
   function middleware(req) {
-    console.log(req.nextUrl.pathname);
-    console.log(req.nextauth.token?.role);
+    /* console.log(req.nextUrl.pathname);
+    console.log(req.nextauth.token?.role); */
 
     if (
-      req.nextUrl.pathname.startsWith("/addBook") &&
+      (req.nextUrl.pathname.startsWith("/addBook") ||
+        req.nextUrl.pathname.startsWith("/editBooks") ||
+        req.nextUrl.pathname.startsWith("/readingList/newListEntry")) &&
       req.nextauth.token?.role != "Admin"
     ) {
       return NextResponse.rewrite(new URL("/denied", req.url));
     }
   },
+
   {
     callbacks: {
       //authorize if there is some kind of token
@@ -21,4 +24,6 @@ export default withAuth(
   }
 );
 
-export const config = { matcher: ["/addBook"] };
+export const config = {
+  matcher: ["/addBook", "/readingList/newListEntry", "/editBooks/:path*"],
+};

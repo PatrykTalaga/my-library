@@ -12,7 +12,6 @@ export const options: NextAuthOptions = {
       profile(profile: GithubProfile) {
         /* console.log("Profile Github : ", profile); */
         let userRole = "Github User";
-        if (profile?.email === "patryk.j.talaga@gmail.com") userRole = "Admin";
         return {
           /* ...profile, // if you want all from github */
           id: profile.id.toString(),
@@ -26,6 +25,7 @@ export const options: NextAuthOptions = {
     GoogleProvider({
       profile(profile: GoogleProfile) {
         let userRole = "Google User";
+        if (profile?.email === "pat2025@gmail.com") userRole = "Admin";
         return {
           id: profile.sub,
           name: profile.name,
@@ -54,7 +54,7 @@ export const options: NextAuthOptions = {
         //Normally retrieve users from database, here is hard coded for a single user (admin)
         const user = {
           id: "117as23312aas1",
-          name: "Patric",
+          name: "Patrick",
           password: "22@s1za1ds4A",
           role: "Admin",
         };
