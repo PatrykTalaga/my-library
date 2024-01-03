@@ -9,6 +9,7 @@ import { AvailabilityInputControlled } from "./AvailabilityInputControlled";
 import sumbitCover from "@/app/functions/submitCover";
 import saveBook from "@/app/functions/saveBook";
 import { useRouter } from "next/navigation";
+import removeCover from "@/app/functions/removeCover";
 
 type BookType = {
   id: string;
@@ -27,7 +28,7 @@ type BookType = {
 export default function BookEditForm({
   id = ",",
   title = "",
-  cover = "empty",
+  cover = "missingCover.png",
   author = "",
   isRead = true,
   availability = "On the shelf",
@@ -91,6 +92,14 @@ export default function BookEditForm({
     }
   }
 
+  async function removeCoverHandler() {
+    if (newBook.cover == "") return;
+    await removeCover(title);
+    setNewBook({ ...newBook, cover: "" });
+    setImgErrorMessage("");
+    router.refresh();
+  }
+
   async function saveEdit() {
     if (newBook.title == "") {
       setTitleError("Book cannot have empty title");
@@ -139,10 +148,17 @@ export default function BookEditForm({
             <p className="">Upload only PNG or JPG (MAX. 500kB)</p>
             <button
               type="submit"
-              className="bg-zinc-900 bg-opacity-80 border
+              className="bg-blue-600 w-48 border-slate-950
           rounded-lg mt-2 px-5 py-2 hover:scale-110"
             >
               Change Cover
+            </button>
+            <button
+              className="bg-red-600 w-48 border-slate-950
+              rounded-lg mt-4 px-5 py-2 hover:scale-110"
+              onClick={removeCoverHandler}
+            >
+              Remove Cover
             </button>
           </form>
         </div>
@@ -229,8 +245,8 @@ export default function BookEditForm({
               change={(e) => setNewBook({ ...newBook, review: e.target.value })}
             />
             <button
-              className="bg-zinc-900 bg-opacity-80 border rounded-lg
-            mx-auto mt-7 p-5 hover:scale-110"
+              className="bg-blue-600 w-24 border-slate-950
+              rounded-lg mt-5 mx-auto px-5 py-4 hover:scale-110"
               onClick={saveEdit}
             >
               Submit

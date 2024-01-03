@@ -22,6 +22,7 @@ export default async function sumbitCover(data: FormData, title: string) {
 
     const rawDate = new Date();
     const date = convertDate(rawDate);
+    let oldPath: string;
 
     try {
       await connectMongo();
@@ -30,25 +31,25 @@ export default async function sumbitCover(data: FormData, title: string) {
       //save cover
       const bytes = await file.arrayBuffer();
       const buffer = Buffer.from(bytes);
-      const path = join("public/", "bookCovers/", imageId);
+      const format = file.name.substring(file.name.length - 4);
+      const newFileName = imageId + format;
+      const path = join("public/", "bookCovers/", newFileName);
       await writeFile(path, buffer);
-      //remove old cover if it exist
-      const oldPath = join("public/", "bookCovers/", book.cover);
-      if (fs.existsSync(oldPath)) {
-        try {
-          console.log(fs.existsSync(oldPath));
-          console.log("here before delete");
-          fs.unlinkSync(oldPath);
-          console.log("here after delete");
-        } catch (error) {
-          console.error(error);
-        }
-      }
+      //for removing remove old cover (rest below)
+      oldPath = join("public/", "bookCovers/", book.cover);
       //save new cover id in DB
-      book.cover = imageId;
+      book.cover = newFileName;
       book.editedAt = date;
       await book.save();
-      return imageId; //return new cover Id to reload img
+      try {
+        await fs.promises.access(oldPath, fs.constants.F_OK);
+        fs.unlink(oldPath, function (error) {
+          if (error) throw error;
+        });
+      } catch (error) {
+        console.error(error);
+      }
+      return newFileName; //return new cover Id to reload img
     } catch (err) {
       console.error(err);
       return false;

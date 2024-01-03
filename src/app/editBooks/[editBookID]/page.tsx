@@ -38,7 +38,7 @@ export default async function EditBook({
   const book = await findBook(params.editBookID);
   if (book == null) return <h2>Serwer Error</h2>;
 
-  const bookNoId: BookType = {
+  let bookNoId: BookType = {
     id: book._id.toString(),
     title: book.title,
     cover: book.cover,
@@ -52,9 +52,12 @@ export default async function EditBook({
     review: book.review,
   };
   const path = join("public/", "bookCovers/", book.cover);
-  if (book.cover !== "") {
-    if (fs.existsSync(path) !== true) {
-      bookNoId.cover = "bg-dark.jpg";
+  if (bookNoId.cover !== "") {
+    try {
+      await fs.promises.access(path, fs.constants.F_OK);
+    } catch (error) {
+      bookNoId.cover = "missingCover.png";
+      console.error(error);
     }
   }
 

@@ -63,8 +63,11 @@ export default async function BookID({
   } else {
     const path = join("public/", "bookCovers/", book.cover);
     if (book.cover !== "") {
-      if (fs.existsSync(path) !== true) {
-        book.cover = "bg-dark.jpg";
+      try {
+        await fs.promises.access(path, fs.constants.F_OK);
+      } catch (error) {
+        book.cover = "missingCover.png";
+        console.error(error);
       }
     }
 

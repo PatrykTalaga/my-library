@@ -13,11 +13,14 @@ type BookType = {
   id: string;
 };
 
-export function BookListElement({ book, id }: BookType) {
+export async function BookListElement({ book, id }: BookType) {
   const path = join("public/", "bookCovers/", book.cover);
   if (book.cover !== "") {
-    if (fs.existsSync(path) !== true) {
-      book.cover = "bg-dark.jpg";
+    try {
+      await fs.promises.access(path, fs.constants.F_OK);
+    } catch (error) {
+      book.cover = "missingCover.png";
+      console.error(error);
     }
   }
 
@@ -28,7 +31,7 @@ export function BookListElement({ book, id }: BookType) {
       rounded-lg p-5 w-64 hover:scale-105"
     >
       <h1 className="text-2xl font-bold text-center">{book.title}</h1>
-      {fs.existsSync(path) && book.cover !== "" && (
+      {book.cover !== "" && (
         <img
           className="my-2 mx-auto
         h-60 object-scale-down"

@@ -25,12 +25,14 @@ export default async function addCover(data: FormData, title: string) {
       //save cover
       const bytes = await file.arrayBuffer();
       const buffer = Buffer.from(bytes);
-      const path = join("public/", "bookCovers/", imageId);
+      const format = file.name.substring(file.name.length - 4);
+      const newFileName = imageId + format;
+      const path = join("public/", "bookCovers/", newFileName);
       await writeFile(path, buffer);
       //save new cover id in DB
-      book.cover = imageId;
+      book.cover = newFileName;
       await book.save();
-      return imageId; //return new cover Id to reload img
+      return newFileName; //return new cover Id to reload img
     } catch (err) {
       console.error(err);
       return false;

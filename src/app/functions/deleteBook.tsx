@@ -21,7 +21,12 @@ export default async function deleteBook(id: string) {
     //check if cover exists and delete it
     if (book.cover != "") {
       const path = join("public/", "bookCovers/", book.cover);
-      if (fs.existsSync(path) == true) fs.unlinkSync(path);
+      try {
+        await fs.promises.access(path, fs.constants.F_OK);
+      } catch (error) {
+        fs.unlinkSync(path);
+        console.error(error);
+      }
     }
     //delete book
     const result = await Book.deleteOne({ _id: id });
