@@ -30,7 +30,7 @@ export default function SearchComponent() {
     <>
       <div
         className="my-auto bg-zinc-900 bg-opacity-80 w-96 flex
-      justify-end items-center border rounded-lg h-14"
+      justify-end items-center border rounded-lg h-14 smNav:my-2"
       >
         <div className="flex justify-center items-center">
           <input

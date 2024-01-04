@@ -22,7 +22,7 @@ export default function RootLayout({
         <body
           className={`${inter.className} text-slate-100 mx-auto py-4 px-8
         bg-[url('../../public/bg-dark-hq.jpg')] w-full bg-center-bottom
-        bg-no-repeat bg-cover container`}
+        bg-no-repeat bg-cover`}
         >
           <NAV />
           {children}

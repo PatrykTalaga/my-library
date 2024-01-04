@@ -25,7 +25,7 @@ export default async function Home() {
           {session && session.user.role == "Admin" && <ClearCoverStorageBtn />}
         </div>
 
-        <ul className="grid auto-rows-max grid-flow-row grid-cols-4 gap-5 mt-10">
+        <ul className="grid auto-rows-max grid-flow-row grid-cols-5 gap-5 mt-10 lgList:grid-cols-4 mdList:grid-cols-3 usm:grid-cols-2">
           {books.map((book) => (
             <BookListElement
               key={book._id}
