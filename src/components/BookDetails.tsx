@@ -1,6 +1,3 @@
-import fs from "fs";
-import { join } from "path";
-
 type BookType = {
   book: {
     _id: string;
@@ -33,7 +30,7 @@ export default function BookDetails({ book }: BookType) {
         <h1 className="text-2xl font-bold">{book.title}</h1>
         {book.author !== "" && (
           <p className="text-lg">
-            <b>Author:</b> {book.author}
+            <b>Author:</b> {" " + book.author}
           </p>
         )}
         {book.year !== 0 && (
@@ -41,37 +38,38 @@ export default function BookDetails({ book }: BookType) {
             {" "}
             {/* 0 is default value */}
             <b>Year:</b>
-            {book.year.toString()}
+            {" " + book.year.toString()}
           </p>
         )}
         {book.pages !== 0 && (
           <p className="text-lg">
             <b>Pages:</b>
-            {book.pages.toString()}
+            {" " + book.pages.toString()}
           </p>
         )}
         {book.pageFormat !== "" && (
           <p className="text-lg">
             <b>Page format:</b>
-            {book.pageFormat}
+            {" " + book.pageFormat}
           </p>
         )}
         <p className="text-lg">
-          <b>Read:</b> {book.isRead ? "Yes" : "No"}
+          <b>Read:</b> {book.isRead ? " Yes" : " No"}
         </p>
         <p className="text-lg">
           <b>Avaibility:</b>
-          {book.availability}
+          {" " + book.availability}
         </p>
         {book.rating !== 0 && (
           <p className="text-lg">
             <b>Rating:</b>
-            {book.rating.toString()}
+            {" " + book.rating.toString() + "/10"}
           </p>
         )}
         {book.review !== "" && (
-          <p className="text-lg">
-            <b>Review:</b> {book.review}
+          <p className="text-lg mt-1">
+            <b>Summary:</b>
+            <br></br> {book.review}
           </p>
         )}
       </div>

@@ -239,7 +239,7 @@ export default function BookEditForm({
           {/* form right side */}
           <div className="flex flex-col ml-5">
             <TextAreaInputControlled
-              label={"Review: "}
+              label={"Summary: "}
               name={"review"}
               value={newBook.review}
               change={(e) => setNewBook({ ...newBook, review: e.target.value })}

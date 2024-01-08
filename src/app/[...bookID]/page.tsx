@@ -47,8 +47,6 @@ export default async function BookID({
       const book = await Book.findOne({ _id: bookID });
       book.comment.sort(function (a: CommentType, b: CommentType) {
         return a.editedAt.getTime() - b.editedAt.getTime();
-
-        /* return a.editedAt - b.editedAt; */
       });
       book.comment.reverse();
       return book;
@@ -108,7 +106,7 @@ export default async function BookID({
         >
           <p
             className="w-44 text-center text-2xl font-bold bg-zinc-900
-            bg-opacity-80  my-2 px-2 py-2 border rounded-lg"
+            bg-opacity-80  my-2 px-2 py-2 border rounded-lg mt-7"
           >
             Comments:{" "}
           </p>

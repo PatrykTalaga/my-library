@@ -7,8 +7,13 @@ export default async function Home({ params }: { params: { title: string } }) {
 
   try {
     await connectMongo();
-    const books = await Book.find({ title: { $regex: titleWithSpaces } });
+    let books = await Book.find({
+      title: { $regex: titleWithSpaces, $options: "i" },
+    });
     if (books.length !== 0) {
+      books.sort(function (a, b) {
+        return b.editedAt.getTime() - a.editedAt.getTime();
+      });
       return (
         <>
           <div

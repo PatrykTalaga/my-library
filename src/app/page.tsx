@@ -10,7 +10,10 @@ export default async function Home() {
 
   try {
     await connectMongo();
-    const books = await Book.find();
+    let books = await Book.find();
+    books.sort(function (a, b) {
+      return b.editedAt.getTime() - a.editedAt.getTime();
+    });
     return (
       <>
         <div className="flex justify-start">

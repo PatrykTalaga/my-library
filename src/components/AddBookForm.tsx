@@ -172,7 +172,7 @@ export default function AddBookForm() {
             {/* form rights side */}
             <div className="flex flex-col mx-auto items-center">
               <TextAreaInputControlled
-                label={"Review: "}
+                label={"Summary: "}
                 name={"review"}
                 value={newBook.review}
                 change={(e) =>

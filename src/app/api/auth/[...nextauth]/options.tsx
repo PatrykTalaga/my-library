@@ -5,6 +5,16 @@ import { GoogleProfile } from "next-auth/providers/google";
 
 import type { NextAuthOptions } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
+import connectMongo from "../../../../../utils/connectMongo";
+import User from "../../../../../models/userModel";
+
+type UserType = {
+  id: String;
+  userName: String;
+  email: String;
+  password: String;
+  role: String;
+};
 
 export const options: NextAuthOptions = {
   providers: [
@@ -39,7 +49,7 @@ export const options: NextAuthOptions = {
     CredentialsProvider({
       name: "Credentials",
       credentials: {
-        username: {
+        userName: {
           label: "Username:",
           type: "text",
           placeholder: "username",
@@ -51,8 +61,29 @@ export const options: NextAuthOptions = {
         },
       },
       async authorize(credentials) {
-        //Normally retrieve users from database, here is hard coded for a single user (admin)
-        const user = {
+        try {
+          await connectMongo();
+          const user: any = await User.findOne({
+            userName: credentials?.userName,
+          })
+            .lean()
+            .exec();
+          if (user) {
+            console.log("Username is the database");
+            const passCompare = user.password === credentials?.password;
+            if (passCompare) {
+              delete user.password;
+              user.name = user.userName;
+              user.role = user.role;
+              return user;
+            }
+          }
+        } catch (error) {
+          console.error(error);
+        }
+        return null;
+        //hard coded example for a single user (admin)
+        /* const user = {
           id: "117as23312aas1",
           name: "Patrick",
           password: "22@s1za1ds4A",
@@ -66,7 +97,7 @@ export const options: NextAuthOptions = {
           return user;
         } else {
           return null;
-        }
+        } */
       },
     }),
   ],

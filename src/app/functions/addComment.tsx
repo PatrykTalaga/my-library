@@ -27,13 +27,9 @@ export default async function addComment(
       userId: userId,
       comment: comment,
     };
-    console.log("newComment: ");
-    console.log(newComment);
 
     book.comment.push(newComment);
     await book.save();
-    /* console.log("book: ");
-    console.log(book); */
   } catch (error) {
     console.error(error);
     return "Server Error";

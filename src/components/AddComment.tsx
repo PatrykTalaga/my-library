@@ -1,8 +1,9 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import addComment from "@/app/functions/addComment";
 import { useRouter } from "next/navigation";
+import { Session } from "inspector";
 
 export default function AddComment({
   bookID,
@@ -34,9 +35,9 @@ export default function AddComment({
         New Comment:
       </p>
       <textarea
-        rows={4}
+        rows={7}
         name={comment}
-        className="bg-zinc-900 bg-opacity-80 
+        className="bg-zinc-900 bg-opacity-80 overflow-y-scroll
       border rounded-md my-1 px-3 py-2 focus:bg-zinc-900"
         value={comment || ""}
         onChange={(e) => setComment(e.target.value)}
