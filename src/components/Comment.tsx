@@ -104,7 +104,7 @@ export default function Comment({
               value={text}
               onChange={(e) => setText(e.target.value)}
               disabled={editStatus}
-              className="w-full py-2 px-3  border-black overflow-y-scroll h-96
+              className="w-full py-2 px-3  border-black overflow-y-scroll h-40
             rounded-md text-white bg-slate-500 disabled:bg-transparent
             disabled:p-1 pb-1"
             ></textarea>

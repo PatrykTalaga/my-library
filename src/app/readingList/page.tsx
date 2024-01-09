@@ -61,7 +61,7 @@ export default async function ReadingList() {
           {session && session.user.role == "Admin" && (
             <Link
               href={"/readingList/newListEntry"}
-              className="text-2xl border
+              className="text-xl border bg-blue-600 w-64 mx-auto border-zinc-900
           rounded-lg px-3 py-2 my-5 flex justify-center hover:scale-110"
             >
               Add new book to read

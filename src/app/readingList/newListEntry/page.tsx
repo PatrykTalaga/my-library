@@ -31,7 +31,7 @@ const NewListEntry = () => {
         className="flex flex-col mx-auto w-1/3 bg-zinc-900 bg-opacity-80
       py-7 px-10 border rounded-md"
       >
-        <h1 className="text-4xl mb-3">Add new book to read</h1>
+        <h1 className="text-4xl mb-4 mx-auto">Add new book to read</h1>
         <form action={addNewListEntry} className=" flex flex-col">
           <AddListInput label="Book Title: " name="title" />
           <AddListInput label="Author: " name="author" />
@@ -44,20 +44,22 @@ const NewListEntry = () => {
           rounded-md bg-zinc-900 bg-opacity-80  "
             />
           </div>
-          <button
-            type="submit"
-            className="border rounded-md bg-zinc-900
-          bg-opacity-80 w-1/2 mx-auto mt-3 hover:scale-110"
-          >
-            Add
-          </button>
-          <button
-            type="reset"
-            className="border rounded-md bg-zinc-900
-          bg-opacity-80 w-1/2 mx-auto mt-3 hover:scale-110"
-          >
-            Reset
-          </button>
+          <div className="flex justify-center">
+            <button
+              type="submit"
+              className="border-zinc-900 rounded-md bg-blue-600 
+          w-32 text-xl mb-1 py-1 mx-3 mt-3 hover:scale-110"
+            >
+              Add
+            </button>
+            <button
+              type="reset"
+              className="border-zinc-900 rounded-md bg-red-600 
+              w-32 text-xl mb-1 py-1 mx-3 mt-3 hover:scale-110"
+            >
+              Reset
+            </button>
+          </div>
         </form>
       </div>
     </>

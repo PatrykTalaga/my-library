@@ -1,9 +1,8 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import addComment from "@/app/functions/addComment";
 import { useRouter } from "next/navigation";
-import { Session } from "inspector";
 
 export default function AddComment({
   bookID,
